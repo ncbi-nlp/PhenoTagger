@@ -6,7 +6,7 @@ PhenoTagger is a hybrid method combining the dictionary-based and machine learni
 
 ## Content
 - [Dependency package](#package)
-- [Data and model preparation](#files)
+- [Data and model preparation](#preparation)
 - [Instructions for tagging text with PhenoTagger](#tagging)
 - [Instructions for training PhenoTagger](#training)
 
@@ -23,7 +23,8 @@ PhenoTagger uses the following dependencies:
 
 
 ## Data and model preparation
-<a name="files"></a>
+<a name="ppreparation"></a>
+
 1. To run this code, you need to first download BioBERT-Base v1.1 (https://github.com/dmis-lab/biobert), then put it into the /data/biobert_v11_pubmed/ fold. 
 2. [Two trained models (i.e., BioBERT and CNN)](https://ftp.ncbi.nlm.nih.gov/pub/lu/) for HPO concepts are provided.
 3. The corpora used in the experiments are provided in /data/corpus.zip
