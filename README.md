@@ -2,7 +2,7 @@
 ***
 This repo contains the source code and dataset for the PhenoTagger.
 
-PhenoTagger is a hybrid method combining the dictionary-based and machine learning-based methods to recognize the Human Phenotype Ontology (HPO) concepts in unstructured biomedical text.
+PhenoTagger is a hybrid method that combines dictionary and deep learning-based methods to recognize Human Phenotype Ontology (HPO) concepts in unstructured biomedical text. It is an ontology-driven method without requiring any manually labeled training data, as that is expensive and annotating a large-scale training dataset covering all classes of HPO concepts is highly challenging and unrealistic.
 
 ## Content
 - [Dependency package](#package)
@@ -23,9 +23,9 @@ PhenoTagger uses the following dependencies:
 
 
 ## Data and model preparation
-<a name="ppreparation"></a>
+<a name="preparation"></a>
 
-1. To run this code, you need to first download BioBERT-Base v1.1 (https://github.com/dmis-lab/biobert), then put it into the /data/biobert_v11_pubmed/ fold. 
+1. To run this code, you need to first download BioBERT-Base v1.1 (https://github.com/dmis-lab/biobert), then put it into the /data/biobert_v11_pubmed/ folder. 
 2. [Two trained models (i.e., BioBERT and CNN)](https://ftp.ncbi.nlm.nih.gov/pub/lu/) for HPO concepts are provided.
 3. The corpora used in the experiments are provided in /data/corpus.zip
 
