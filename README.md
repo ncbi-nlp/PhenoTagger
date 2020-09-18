@@ -6,7 +6,7 @@ PhenoTagger is a hybrid method combining the dictionary-based and machine learni
 
 ## Content
 - [Dependency package](#package)
-- [Data and model files](#files)
+- [Data and model preparation](#files)
 - [Instructions for tagging text with PhenoTagger](#tagging)
 - [Instructions for training PhenoTagger](#training)
 
@@ -22,10 +22,11 @@ PhenoTagger uses the following dependencies:
 - [keras-bert 0.84.0](https://github.com/CyberZHG/keras-bert)
 
 
-## Data and model
+## Data and model preparation
 <a name="files"></a>
-
-
+1. To run this code, you need to first download BioBERT-Base v1.1 (https://github.com/dmis-lab/biobert), then put it into the /data/biobert_v11_pubmed/ fold. 
+2. [Two trained models (i.e., BioBERT and CNN)](https://ftp.ncbi.nlm.nih.gov/pub/lu/) for HPO concepts are provided.
+3. The corpora used in the experiments are provided in /data/corpus.zip
 
 ## Tagging free text with PhenoTagger
 <a name="tagging"></a>
@@ -57,11 +58,11 @@ We also provide some optional parameters for the different requirements of users
 
 ```
 para_set={
-'tagger':'hybrid', # three engines are provided.'dl' denotes only deep learning; 'dict' denotes only dictionary; 'hybrid' denote the hybrid method
-'model_type':'cnn', # two deep learning models are provided. cnn or biobert
-'onlyLongest':False, # False: return overlapping concepts; True: only return the longgest concepts in the overlapping concepts
-'abbrRecog':False,# False: don't identify abbreviation; True: identify abbreviations
-'ML_Threshold':0.95,# the Threshold of deep learning model
+'tagger':'hybrid',    # three engines are provided.'dl' denotes only deep learning; 'dict' denotes only dictionary; 'hybrid' denote the hybrid method
+'model_type':'cnn',   # two deep learning models are provided. cnn or biobert
+'onlyLongest':False,  # False: return overlapping concepts; True: only return the longgest concepts in the overlapping concepts
+'abbrRecog':False,    # False: don't identify abbreviation; True: identify abbreviations
+'ML_Threshold':0.95,  # the Threshold of deep learning model
   }
 ```
 After the program is finished, the JSON output file will be generated. The format of the JSON file is:
