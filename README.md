@@ -26,7 +26,7 @@ PhenoTagger uses the following dependencies:
 <a name="preparation"></a>
 
 1. To run this code, you need to first download BioBERT-Base v1.1 (https://github.com/dmis-lab/biobert), then put it into the /data/biobert_v11_pubmed/ folder. 
-2. Two trained models (i.e., [BioBERT and CNN](https://ftp.ncbi.nlm.nih.gov/pub/lu/PhenoTagger/models.zip)) for HPO concept recognition are provided. You need to download it, and unzip to the PhenoTagger folder. If you want to use CNN model, you also should download the [pre-trined word embedding](https://ftp.ncbi.nlm.nih.gov/pub/lu/PhenoTagger/bio_embedding_intrinsic.zip) and unzip it into the /data/vocab/ folder. 
+2. Two trained models (i.e., [BioBERT and CNN](https://ftp.ncbi.nlm.nih.gov/pub/lu/PhenoTagger/models.zip)) for HPO concept recognition are provided. You need to download it, and unzip to the PhenoTagger folder. If you want to use CNN model, you also should download the [pre-trained word embedding](https://ftp.ncbi.nlm.nih.gov/pub/lu/PhenoTagger/bio_embedding_intrinsic.zip) and unzip it into the /data/vocab/ folder. 
 3. The corpora used in the experiments are provided in /data/corpus.zip
 
 ## Tagging free text with PhenoTagger
