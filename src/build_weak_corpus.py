@@ -15,6 +15,7 @@ import json
 import copy
 import sys
 import argparse
+import os
 np.random.seed(123)
 
 lemmatizer = WordNetLemmatizer()
@@ -35,6 +36,8 @@ def train_pos(hpo_obo,hpo_vocab,outpath):
     fout=open(outpath+'weak_train_pos.conll','w',encoding='utf-8')
  
     for hpoid in hpo_vocab:
+        if hpoid=='HP:None':
+            continue
         term_name=hpo_obo[hpoid]['name']
         temp_out=[]
         temp_out.append(hpoid+'\t'+term_name[0])
@@ -162,7 +165,9 @@ if __name__=="__main__":
     parser.add_argument('--output', '-o', help="the output path of the weakly-supervised training dataset",default='../data/weak_train_data/')
     args = parser.parse_args()
 
-
+    if not os.path.exists(args.output):
+        os.makedirs(args.output)
+        
     fin_obo=open(args.dict+'obo.json','r',encoding='utf-8')
     hpo_obo=json.load(fin_obo)
     fin_obo.close()   

@@ -13,6 +13,7 @@ import nltk
 import json
 import copy
 import sys
+import os
 import argparse
 
 lemmatizer = WordNetLemmatizer()
@@ -296,6 +297,8 @@ if __name__=="__main__":
     parser.add_argument('--output', '-o', help="the output path of dictionary",default='../dict/')
     parser.add_argument('--rootnode','-r',help="input the root node of the ontogyly",nargs='+', default=['HP:0000118'])
     args = parser.parse_args()
+    if not os.path.exists(args.output):
+        os.makedirs(args.output)
 
     print('building dictionary........')
     hpo_obo=build_dict(args.input,args.output,args.rootnode)

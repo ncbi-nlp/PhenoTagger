@@ -13,21 +13,29 @@ PhenoTagger is a hybrid method that combines dictionary and deep learning-based 
 ## Dependency package
 <a name="package"></a>
 
-PhenoTagger uses the following dependencies:
+PhenoTagger uses the following dependencies (we tested our code on the following versions of the dependencies):
 
+TF1:
 - [Python 3.7](https://www.python.org/)
 - [TensorFlow 1.15.2](http://www.deeplearning.net/software/theano/)
 - [Keras 2.3.1](http://www.numpy.org/)
 - [nltk 3.5](www.nltk.org)
 - [keras-bert 0.84.0](https://github.com/CyberZHG/keras-bert)
 
+or TF2:
+- [Python 3.7](https://www.python.org/)
+- [TensorFlow 2.3.0](https://www.tensorflow.org/)
+- [Keras 2.4.3](http://www.numpy.org/)
+- [nltk 3.5](www.nltk.org)
+- [keras-bert 0.86.0](https://github.com/CyberZHG/keras-bert)
+
 
 ## Data and model preparation
 <a name="preparation"></a>
 
-1. To run this code, you need to first download BioBERT-Base v1.1 (https://github.com/dmis-lab/biobert), then put it into the /data/biobert_v11_pubmed/ folder. 
-2. Two trained models (i.e., [BioBERT and CNN](https://ftp.ncbi.nlm.nih.gov/pub/lu/PhenoTagger/models.zip)) for HPO concept recognition are provided. You need to download it, and unzip to the PhenoTagger folder. If you want to use CNN model, you also should download the [pre-trained word embedding](https://ftp.ncbi.nlm.nih.gov/pub/lu/PhenoTagger/bio_embedding_intrinsic.zip) and unzip it into the /data/vocab/ folder. 
-3. The corpora used in the experiments are provided in /data/corpus.zip
+1. To run this code, you need to first download BioBERT-Base v1.1 (https://github.com/dmis-lab/biobert), then unzip and put the files into the */data/vocab/biobert_v11_pubmed/* folder. If you want to train or use CNN model, you need to download the [pre-trained word embedding](https://ftp.ncbi.nlm.nih.gov/pub/lu/PhenoTagger/bio_embedding_intrinsic.zip) and unzip it into the */data/vocab/* folder. 
+2. Two trained models (i.e., [BioBERT and CNN](https://ftp.ncbi.nlm.nih.gov/pub/lu/PhenoTagger/models.zip)) for HPO concept recognition are provided. If you want to tag free text with these models, you need to download it and unzip to the */models/* folder. 
+3. The corpora used in the experiments are provided in */data/corpus.zip*. Please unzip the file, if you need to use them.
 
 ## Tagging free text with PhenoTagger
 <a name="tagging"></a>
