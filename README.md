@@ -132,11 +132,11 @@ Example:
 python build_weak_corpus.py -d ../dict/ -f ../data/mutation_disease.txt -n 10000 -o ../data/weak_train_data/
 ```
 
-After the program is finished, 3 files will be generated in the outpath.
+After the program is finished, 3 files will be generated in the outpath:
 
-- weak\_train.conll
-- weak\_train\_pos.conll
-- weak\_train\_neg.conll
+- weak\_train.conll       (weakly-supervised training data)
+- weak\_train\_pos.conll  (weakly-supervised training positives)
+- weak\_train\_neg.conll  (weakly-supervised training negatives)
 
 ### 3. Train PhenoTagger using the *PhenoTagger_training.py* file
 
@@ -145,15 +145,18 @@ The file takes 4 parameters:
 - --trainfile, -t, help="the training file"
 - --devfile, -d, help="the development set file. If don't provide the dev file, the training will be stopped by the specified EPOCH"
 - --modeltype, -m, help="the deep learning model type (cnn or biobert?)"
-- --output, -o, help="the model output file"
+- --output, -o, help="the output file path of the model"
 
 Example:
 
 ```
-python PhenoTagger_training.py -t ../data/weak_train_data/weak_train.conll -d ../data/corpus/GSC/GSCplus_dev_gold.tsv -m biobert -o ../models/biobert_hpo.h5
+python PhenoTagger_training.py -t ../data/weak_train_data/weak_train.conll -d ../data/corpus/GSC/GSCplus_dev_gold.tsv -m biobert -o ../models/
 ```
 
-After the program is finished, the trained model will be generated an the output.
+After the program is finished, 2 files will be generated in the outpath:
+
+- cnn.h5/biobert.h5                      (the trained model)
+- cnn_dev_temp.tsv/biobert_dev_temp.tsv  (the prediction results of the development set, if you input a development set file)
 
 
 ## Disclaimer
