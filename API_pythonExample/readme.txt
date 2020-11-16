@@ -26,7 +26,7 @@ B. [Processing raw text online]
 	
 	1) Submitting requests : Three parameters are required, which include the name of the target folder containing files to process, the specific concept to retreive, and the output file to save the session numbers for later retrieval. Note that each session number represents the submission of one file.
 	
-		$ python SubmitText_request.py [Inputfolder] [Bioconcept:Phenotype] [outputfile_SessionNumber]
+		$ python SubmitText_request.py [Inputfolder] [Bioconcept:Phenotype] [Outputfile_SessionNumber]
         
 		[Inputfolder]: a folder with files to submit
 		[Bioconcept]: Phenotype
@@ -34,9 +34,9 @@ B. [Processing raw text online]
 
 		Eg., python SubmitText_request.py input Phenotype SessionNumber.txt
 	
-	2) Retrieving results : Two parameters are required, which includes the filename containing session numbers, and the folder to store results. 
+	2) Retrieving results : Three parameters are required, which includes the original input folder, the filename containing session numbers, and the folder to store results. 
 	
-		$ python SubmitText_retrieve.py [Inputfile_SessionNumber] [outputfolder]
+		$ python SubmitText_retrieve.py [Inputfolder] [Inputfile_SessionNumber] [Outputfolder]
         
 		[Inputfolder]: Original Input folder
 		[Inputfile_SessionNumber]: a file with a list of session numbers

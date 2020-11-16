@@ -151,7 +151,7 @@ The process consists of two primary steps 1) submitting requests and 2) retrievi
 ### 1. Submitting requests
 
 ```
-$ python SubmitText_request.py [Inputfolder] [Bioconcept:Phenotype] [outputfile_SessionNumber]
+$ python SubmitText_request.py [Inputfolder] [Bioconcept:Phenotype] [Outputfile_SessionNumber]
 ```
 
 Three parameters are required:
@@ -169,7 +169,7 @@ $ python SubmitText_request.py input Phenotype SessionNumber.txt
 ###	2. Retrieving results
 
 ```
-$ python SubmitText_retrieve.py [Inputfile_SessionNumber] [outputfolder]
+$ python SubmitText_retrieve.py [Inputfolder] [Inputfile_SessionNumber] [outputfolder]
 ```
 
 Three parameters are required:
