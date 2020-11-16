@@ -131,7 +131,7 @@ The file requires 4 parameters:
 Example:
 
 ```
-$ python PhenoTagger_training.py -t ../data/distant_train_data/weak_train.conll -d ../data/corpus/GSC/GSCplus_dev_gold.tsv -m biobert -o ../models/
+$ python PhenoTagger_training.py -t ../data/distant_train_data/distant_train.conll -d ../data/corpus/GSC/GSCplus_dev_gold.tsv -m biobert -o ../models/
 ```
 
 After the program is finished, 2 files will be generated in the output folder:
