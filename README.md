@@ -156,9 +156,9 @@ $ python SubmitText_request.py [Inputfolder] [Bioconcept:Phenotype] [outputfile_
 
 Three parameters are required:
         
-- [Inputfolder]: a folder with files to submit
-- [Bioconcept]: Phenotype
-- [outputfile_SessionNumber]: output file to save the session numbers
+- \[Inputfolder\]: a folder with files to submit
+- \[Bioconcept\]: Phenotype
+- \[outputfile_SessionNumber\]: output file to save the session numbers
 
 Example:
 
@@ -174,8 +174,8 @@ $ python SubmitText_retrieve.py [Inputfile_SessionNumber] [outputfolder]
 
 Two parameters are required:
 	
-- [Inputfile_SessionNumber]: a file with a list of session numbers
-- [outputfolder]: Output folder
+- \[Inputfile_SessionNumber\]: a file with a list of session numbers
+- \[outputfolder\]: Output folder
 
 Example:
 
