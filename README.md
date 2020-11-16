@@ -184,6 +184,8 @@ Example:
 $ python SubmitText_retrieve.py input SessionNumber.txt output
 ```
 
+Note that each file in the input folder will be submitted for processing separately. After submission, each file may be queued for 10 to 20 minutes, depending on the computer cluster workload.
+
 ## Performance on HPO GSC+
 <a name="performance"></a>
 
