@@ -10,7 +10,7 @@ PhenoTagger is a hybrid method that combines dictionary and deep learning-based 
 - [Instructions for tagging text with PhenoTagger](#tagging)
 - [Instructions for training PhenoTagger](#training)
 - [Web API for PhenoTagger](#api)
-- [Performance on HPO GSC+](performance)
+- [Performance on HPO GSC+](#performance)
 
 ## Dependency package
 <a name="package"></a>
