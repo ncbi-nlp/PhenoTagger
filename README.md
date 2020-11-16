@@ -158,7 +158,7 @@ Three parameters are required:
         
 - \[Inputfolder\]: a folder with files to submit
 - \[Bioconcept\]: Phenotype
-- \[outputfile_SessionNumber\]: output file to save the session numbers
+- \[Outputfile_SessionNumber\]: output file to save the session numbers
 
 Example:
 
@@ -172,15 +172,16 @@ $ python SubmitText_request.py input Phenotype SessionNumber.txt
 $ python SubmitText_retrieve.py [Inputfile_SessionNumber] [outputfolder]
 ```
 
-Two parameters are required:
-	
+Three parameters are required:
+
+- \[Inputfolder\]: original input folder	
 - \[Inputfile_SessionNumber\]: a file with a list of session numbers
-- \[outputfolder\]: Output folder
+- \[Outputfolder\]: Output folder
 
 Example:
 
 ```
-$ python SubmitText_retrieve.py SessionNumber.txt output
+$ python SubmitText_retrieve.py input SessionNumber.txt output
 ```
 
 ## Performance on HPO GSC+

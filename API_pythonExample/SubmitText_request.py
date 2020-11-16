@@ -52,7 +52,7 @@ if __name__ == "__main__":
 		print("\npython SubmitText_request.py [Inputfolder] [Bioconcept:Phenotype] [outputfile_SessionNumber]\n")
 		print("\t[Inputfolder]: a folder with files to submit")
 		print("\t[Bioconcept]: Phenotype.")
-		print("\t[outputfile_SessionNumber]: output file to save session numbers.")
+		print("\t[Outputfile_SessionNumber]: output file to save session numbers.")
 		print("Eg., python SubmitText_request.py input Phenotype SessionNumber.txt\n")
 	else:
 		Inputfolder = sys.argv[1]

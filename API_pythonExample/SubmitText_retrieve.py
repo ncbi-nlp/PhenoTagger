@@ -122,6 +122,8 @@ def SubmitText(Inputfolder,Inputfile_SessionNumber,Outputfolder):
 	#
 	# load SessionNumbers
 	#
+	if not os.path.exists('tmp/'):
+		os.makedirs('tmp/')
 	with io.open(Inputfile_SessionNumber,'r',encoding="utf-8") as file_input:
 		for line in file_input:
 			pattern = re.compile('^([^\t]+)	(.+)$')
@@ -184,10 +186,12 @@ if __name__ == "__main__":
 		print("\t[Inputfolder]: Input folder")
 		print("\t[Inputfile_SessionNumber]: a file with a list of SessionNumber")
 		print("\t[Outputfolder]: Output folder")
-		print("Eg., python SubmitText_retrieve.py SessionNumber.txt output\n")
+		print("Eg., python SubmitText_retrieve.py input SessionNumber.txt output\n")
 	else:
 		Inputfolder = sys.argv[1]
 		Inputfile_SessionNumber = sys.argv[2]
 		Outputfolder = sys.argv[3]
 		
+		if not os.path.exists(sys.argv[3]):
+			os.makedirs(sys.argv[3])
 		SubmitText(Inputfolder,Inputfile_SessionNumber,Outputfolder)

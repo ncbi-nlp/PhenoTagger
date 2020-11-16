@@ -29,8 +29,8 @@ B. [Processing raw text online]
 		$ python SubmitText_request.py [Inputfolder] [Bioconcept:Phenotype] [outputfile_SessionNumber]
         
 		[Inputfolder]: a folder with files to submit
-		[Bioconcept]: Phenotype.
-		[outputfile_SessionNumber]: output file to save the session numbers.
+		[Bioconcept]: Phenotype
+		[Outputfile_SessionNumber]: output file to save the session numbers
 
 		Eg., python SubmitText_request.py input Phenotype SessionNumber.txt
 	
@@ -38,10 +38,11 @@ B. [Processing raw text online]
 	
 		$ python SubmitText_retrieve.py [Inputfile_SessionNumber] [outputfolder]
         
+		[Inputfolder]: Original Input folder
 		[Inputfile_SessionNumber]: a file with a list of session numbers
-		[outputfolder]: Output folder
+		[Outputfolder]: Output folder
 
-		Eg., python SubmitText_retrieve.py SessionNumber.txt output
+		Eg., python SubmitText_retrieve.py input SessionNumber.txt output
 
 C. [Using the PubTator API efficiently]
 
