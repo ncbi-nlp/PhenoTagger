@@ -31,7 +31,7 @@ or TF1:
 To install all dependencies automatically using the command:
 
 ```
-$ pip install requirements.txt
+$ pip install -r requirements.txt
 ```
 
 ## Data and model preparation
