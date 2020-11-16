@@ -1,0 +1,61 @@
+10617681|t|Possible role of valvular serotonin 5-HT(2B) receptors in the cardiopathy associated with fenfluramine.
+10617681|a|Dexfenfluramine was approved in the United States for long-term use as an appetite suppressant until it was reported to be associated with valvular heart disease. The valvular changes (myofibroblast proliferation) are histopathologically indistinguishable from those observed in carcinoid disease or after long-term exposure to 5-hydroxytryptamine (5-HT)(2)-preferring ergot drugs (ergotamine, methysergide). 5-HT(2) receptor stimulation is known to cause fibroblast mitogenesis, which could contribute to this lesion. To elucidate the mechanism of "fen-phen"-associated valvular lesions, we examined the interaction of fenfluramine and its metabolite norfenfluramine with 5-HT(2) receptor subtypes and examined the expression of these receptors in human and porcine heart valves. Fenfluramine binds weakly to 5-HT(2A), 5-HT(2B), and 5-HT(2C) receptors. In contrast, norfenfluramine exhibited high affinity for 5-HT(2B) and 5-HT(2C) receptors and more moderate affinity for 5-HT(2A) receptors. In cells expressing recombinant 5-HT(2B) receptors, norfenfluramine potently stimulated the hydrolysis of inositol phosphates, increased intracellular Ca(2+), and activated the mitogen-activated protein kinase cascade, the latter of which has been linked to mitogenic actions of the 5-HT(2B) receptor. The level of 5-HT(2B) and 5-HT(2A) receptor transcripts in heart valves was at least 300-fold higher than the levels of 5-HT(2C) receptor transcript, which were barely detectable. We propose that preferential stimulation of valvular 5-HT(2B) receptors by norfenfluramine, ergot drugs, or 5-HT released from carcinoid tumors (with or without accompanying 5-HT(2A) receptor activation) may contribute to valvular fibroplasia in humans.
+10617681	243	265	valvular heart disease	Phenotype	HP:0001654	1.00
+10617681	271	287	valvular changes	Phenotype	HP:0001654	0.99996
+10617681	289	316	myofibroblast proliferation	Phenotype	HP:0020135	0.99525
+10617681	383	392	carcinoid	Phenotype	HP:0100570	1.00
+10617681	675	691	valvular lesions	Phenotype	HP:0001654	0.99876
+10617681	1225	1251	increased intracellular Ca	Phenotype	HP:0003575	0.99937
+10617681	1707	1716	carcinoid	Phenotype	HP:0100570	1.00
+10617681	1717	1723	tumors	Phenotype	HP:0002664	1.00
+
+20921890|t|An open-label tolerability study of BL-1020 antipsychotic: a novel gamma aminobutyric acid ester of perphenazine.
+20921890|a|BACKGROUND: BL-1020, a novel gamma aminobutyric acid (GABA) ester of perphenazine, is a new oral antipsychotic with a strong affinity for dopamine and serotonin receptors. Unlike first- and second-generation antipsychotics, it has agonist activity at GABA(A). OBJECTIVE: This is the first study to examine tolerability and safety of BL-1020 in schizophrenia. METHODS: This was a phase-II, open-label, multicenter, 6-week study treating patients (n = 36) with chronic schizophrenia. Dosing started at 20 mg/d and increased over 7 days to 40 mg/d. Weekly assessments were conducted. RESULTS: All but 1 patient was titrated to 30 mg/d at day 4; on day 7, 30 were titrated to 40 mg/d. Four patients discontinued the study prematurely. There was no clinically relevant increase in vital signs, sedation, dizziness, or other central nervous system effects or electrocardiogram or laboratory abnormalities and a small increase in weight. Ten patients experienced extrapyramidal symptoms (EPS) requiring treatment with an anticholinergic; 4 patients were unable to reach maximum dose because of EPS. Extrapyramidal Symptom Rating Scale did not indicate clinically significant changes in EPS. The most common adverse event was insomnia (6 patients); other frequent adverse effects (all n = 3) were extrapyramidal disorder, headache, parkinsonism, tremor, and hyperprolactinemia. There was improvement on Positive and Negative Syndrome Scale and Clinical Global Impression of Change with 22 patients showing at least 20% decrease by end point on Positive and Negative Syndrome Scale and 31 patients showing at least minimal improvement on Clinical Global Impression of Change. CONCLUSIONS: These data suggest that 20 to 40 mg/d of BL-1020 is associated with clinically relevant improvement of psychosis with no worsening of EPS and support further testing in randomized controlled trials.
+20921890	458	471	schizophrenia	Phenotype	HP:0100753	1.00
+20921890	581	594	schizophrenia	Phenotype	HP:0100753	1.00
+20921890	913	922	dizziness	Phenotype	HP:0002321	1.00
+20921890	988	1012	laboratory abnormalities	Phenotype	HP:0001939	1.00
+20921890	1025	1043	increase in weight	Phenotype	HP:0004324	0.98604
+20921890	1070	1093	extrapyramidal symptoms	Phenotype	HP:0002071	1.00
+20921890	1095	1098	EPS	Phenotype	HP:0002071	1.00
+20921890	1201	1204	EPS	Phenotype	HP:0002071	1.00
+20921890	1206	1228	Extrapyramidal Symptom	Phenotype	HP:0002071	1.00
+20921890	1293	1296	EPS	Phenotype	HP:0002071	1.00
+20921890	1332	1340	insomnia	Phenotype	HP:0100785	1.00
+20921890	1403	1426	extrapyramidal disorder	Phenotype	HP:0002071	1.0
+20921890	1428	1436	headache	Phenotype	HP:0002315	1.00
+20921890	1438	1450	parkinsonism	Phenotype	HP:0001300	1.00
+20921890	1452	1458	tremor	Phenotype	HP:0001337	1.00
+20921890	1464	1482	hyperprolactinemia	Phenotype	HP:0000870	1.00
+20921890	1897	1906	psychosis	Phenotype	HP:0000709	1.00
+20921890	1928	1931	EPS	Phenotype	HP:0002071	1.00
+
+1003450|t|A syndrome of brachydactyly (absence of some middle or distal phalanges), aplastic or hypoplastic nails, symphalangism (ankylois of proximal interphalangeal joints), synostosis of some carpal and tarsal bones, craniosynostosis, and dysplastic hip joints is reported in five members of an Italian family.
+1003450|a| It may represent a previously undescribed autosomal dominant trait.
+1003450	14	27	brachydactyly	Phenotype	HP:0001156	1.00
+1003450	74	103	aplastic or hypoplastic nails	Phenotype	HP:0008386	1.0
+1003450	86	103	hypoplastic nails	Phenotype	HP:0001792	1.00
+1003450	132	163	proximal interphalangeal joints	Phenotype	HP:0006152	0.99766
+1003450	166	208	synostosis of some carpal and tarsal bones	Phenotype	HP:0100266	0.9998
+1003450	196	208	tarsal bones	Phenotype	HP:0008368	0.98675
+1003450	210	226	craniosynostosis	Phenotype	HP:0001363	1.00
+1003450	232	246	dysplastic hip	Phenotype	HP:0001385	0.99998
+
+10066029|t|Nevoid basal cell carcinoma syndrome (NBCCS) is a hereditary condition transmitted as an autosomal dominant trait with complete penetrance and variable expressivity.
+10066029|a|The syndrome is characterised by numerous basal cell carcinomas (BCCs), odontogenic keratocysts of the jaws, palmar and/or plantar pits, skeletal abnormalities and intracranial calcifications. In this paper, the clinical features of 37 Italian patients are reviewed. Jaw cysts and calcification of falx cerebri were the most frequently observed anomalies, followed by BCCs and palmar/plantar pits. Similar to the case of African Americans, the relatively low frequency of BCCs in the Italian population is probably due to protective skin pigmentation. A future search based on mutation screening might establish a possible genotype phenotype correlation in Italian patients.
+10066029	7	27	basal cell carcinoma	Phenotype	HP:0002671	1.00
+10066029	18	27	carcinoma	Phenotype	HP:0030731	1.00
+10066029	208	229	basal cell carcinomas	Phenotype	HP:0002671	1.00
+10066029	219	229	carcinomas	Phenotype	HP:0030731	1.00
+10066029	231	235	BCCs	Phenotype	HP:0002671	1.00
+10066029	238	273	odontogenic keratocysts of the jaws	Phenotype	HP:0010603	1.00
+10066029	289	301	plantar pits	Phenotype	HP:0010612	1.00
+10066029	303	325	skeletal abnormalities	Phenotype	HP:0000924	1.00
+10066029	330	357	intracranial calcifications	Phenotype	HP:0002514	1.00
+10066029	447	476	calcification of falx cerebri	Phenotype	HP:0005462	1.00
+10066029	534	538	BCCs	Phenotype	HP:0002671	1.00
+10066029	543	562	palmar/plantar pits	Phenotype	HP:0010610	0.98375
+10066029	550	562	plantar pits	Phenotype	HP:0010612	1.00
+10066029	638	642	BCCs	Phenotype	HP:0002671	1.00
+10066029	699	716	skin pigmentation	Phenotype	HP:0000953	0.9812
+

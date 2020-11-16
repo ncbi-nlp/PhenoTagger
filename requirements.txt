@@ -1,0 +1,5 @@
+TensorFlow==2.3.0
+Keras==2.4.3
+nltk==3.5
+keras-bert==0.86.0
+bioc==1.3.4

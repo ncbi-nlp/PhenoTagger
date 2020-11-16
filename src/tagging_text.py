@@ -1,12 +1,5 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Aug 24 16:21:23 2020
-
-@author: luol2
-"""
-
-# -*- coding: utf-8 -*-
-"""
 Created on Fri Jun 12 11:33:22 2020
 
 @author: luol2
@@ -18,7 +11,6 @@ from combine_result import combine_ml_dict
 from restore_index import restore_index_nest_fn
 from nn_model import bioTag_CNN,bioTag_BERT
 from dic_ner import dic_ont
-from evaluate import GSCplus_corpus,JAX_corpus
 from post_processing import combine_overlap
 from abbre_resolution import postprocess_abbr
 import os

@@ -16,15 +16,7 @@ import sys
 import os
 import time
 import tensorflow as tf
-'''
-config = tf.ConfigProto()  
-config.gpu_options.allow_growth = True  
-session = tf.Session(config=config) 
 
-config = tf.compat.v1.ConfigProto()
-config.gpu_options.allow_growth = True
-sess = tf.compat.v1.Session(config=config)
-'''
 def run_dev(files,biotag_dic,nn_model):
     
     fin_dev=open(files['devfile'],'r',encoding='utf-8')
@@ -150,25 +142,25 @@ def BERT_training(trainfiles,vocabfiles,modelfile,EPOCH=50):
         
 if __name__=="__main__":
     
-    parser = argparse.ArgumentParser(description='train PheCR, python build_dict.py -i infile -o outpath')
-    parser.add_argument('--trainfile', '-t', help="the training file",default='../data/weak_train_data/weak_train.conll')
+    parser = argparse.ArgumentParser(description='train PhenoTagger, python PhenoTagger_training.py -t trainfile -d devfile -m modeltype -o outpath')
+    parser.add_argument('--trainfile', '-t', help="the training file",default='../data/distant_train_data/distant_train.conll')
     parser.add_argument('--devfile', '-d', help="the development set file",default='none')
     parser.add_argument('--modeltype', '-m', help="deep learning model (cnn or biobert?)",default='biobert')
-    parser.add_argument('--output', '-o', help="the model output file path",default='../models/')
+    parser.add_argument('--output', '-o', help="the model output folder",default='../newmodels/')
     args = parser.parse_args()
     
     if not os.path.exists(args.output):
         os.makedirs(args.output)
 
     if args.modeltype=='cnn':
-        vocabfiles={'w2vfile':'../data/vocab/bio_embedding_intrinsic.d200',   
-                    'charfile':'../data/vocab/char.vocab',
+        vocabfiles={'w2vfile':'../models/bio_embedding_intrinsic.d200',   
+                    'charfile':'../dict/char.vocab',
                     'labelfile':'../dict/lable.vocab',
-                    'posfile':'../data/vocab/pos.vocab'}
+                    'posfile':'../dict/pos.vocab'}
         
-        trainfiles={'trainfile':'../data/corpus/training_data/weak_train.conll',
-                    'devfile':'../data/corpus/GSC/GSCplus_dev_gold.tsv',
-                    'devout':'../results/cnn_dev_temp.tsv'}
+        trainfiles={'trainfile':' ',
+                    'devfile':' ',
+                    'devout':' '}
         trainfiles['trainfile']=args.trainfile
         trainfiles['devfile']=args.devfile
         trainfiles['devout']=args.output+'cnn_dev_temp.tsv'
@@ -178,14 +170,14 @@ if __name__=="__main__":
     else:
         
         vocabfiles={'labelfile':'../dict/lable.vocab',
-                    'config_path':'../data/vocab/biobert_v11_pubmed/bert_config.json',
-                    'checkpoint_path':'../data/vocab/biobert_v11_pubmed/model.ckpt-1000000',
-                    'vocab_path':'../data/vocab/biobert_v11_pubmed/vocab.txt'}
+                    'config_path':'../models/biobert_v11_pubmed/bert_config.json',
+                    'checkpoint_path':'../models/biobert_v11_pubmed/model.ckpt-1000000',
+                    'vocab_path':'../models/biobert_v11_pubmed/vocab.txt'}
 
         
-        trainfiles={'trainfile':'../data/corpus/training_data/weak_train.conll',
-                    'devfile':'../data/corpus/GSC/GSCplus_dev_gold.tsv',
-                    'devout':'../results/bert_dev_temp.tsv'}
+        trainfiles={'trainfile':' ',
+                    'devfile':' ',
+                    'devout':' '}
         trainfiles['trainfile']=args.trainfile
         trainfiles['devfile']=args.devfile
         trainfiles['devout']=args.output+'biobert_dev_temp.tsv'

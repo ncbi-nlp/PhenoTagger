@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE collection SYSTEM "BioC.dtd">
+<collection>
+    <source>PUBMED</source>
+    <date>20130502</date>
+    <key>ctdBCIVLearningDataSet.key</key>
+    <document>
+        <id>20921890</id>
+        <passage>
+            <infon key="type">title</infon>
+            <offset>0</offset>
+            <text>An open-label tolerability study of BL-1020 antipsychotic: a novel gamma aminobutyric acid ester of perphenazine.</text>
+        </passage>
+        <passage>
+            <infon key="type">abstract</infon>
+            <offset>114</offset>
+            <text>BACKGROUND: BL-1020, a novel gamma aminobutyric acid (GABA) ester of perphenazine, is a new oral antipsychotic with a strong affinity for dopamine and serotonin receptors. Unlike first- and second-generation antipsychotics, it has agonist activity at GABA(A). OBJECTIVE: This is the first study to examine tolerability and safety of BL-1020 in schizophrenia. METHODS: This was a phase-II, open-label, multicenter, 6-week study treating patients (n = 36) with chronic schizophrenia. Dosing started at 20 mg/d and increased over 7 days to 40 mg/d. Weekly assessments were conducted. RESULTS: All but 1 patient was titrated to 30 mg/d at day 4; on day 7, 30 were titrated to 40 mg/d. Four patients discontinued the study prematurely. There was no clinically relevant increase in vital signs, sedation, dizziness, or other central nervous system effects or electrocardiogram or laboratory abnormalities and a small increase in weight. Ten patients experienced extrapyramidal symptoms (EPS) requiring treatment with an anticholinergic; 4 patients were unable to reach maximum dose because of EPS. Extrapyramidal Symptom Rating Scale did not indicate clinically significant changes in EPS. The most common adverse event was insomnia (6 patients); other frequent adverse effects (all n = 3) were extrapyramidal disorder, headache, parkinsonism, tremor, and hyperprolactinemia. There was improvement on Positive and Negative Syndrome Scale and Clinical Global Impression of Change with 22 patients showing at least 20% decrease by end point on Positive and Negative Syndrome Scale and 31 patients showing at least minimal improvement on Clinical Global Impression of Change. CONCLUSIONS: These data suggest that 20 to 40 mg/d of BL-1020 is associated with clinically relevant improvement of psychosis with no worsening of EPS and support further testing in randomized controlled trials.</text>
+        </passage>
+    </document>
+    <document>
+        <id>15684285</id>
+        <passage>
+            <infon key="type">title</infon>
+            <offset>0</offset>
+            <text>Effect of rosiglitazone and 15-deoxy-Delta12,14-prostaglandin J2 on bleomycin-induced lung injury.</text>
+        </passage>
+        <passage>
+            <infon key="type">abstract</infon>
+            <offset>99</offset>
+            <text>Thiazolidinedione rosiglitazone and 15-deoxy-Delta12,14-prostaglandin J2 (15d-PGJ2), are two peroxisome proliferator-activated receptor (PPAR)-gamma ligands. The aim of this study was to investigate the effect of rosiglitazone and 15d-PGJ2 on the lung injury caused by bleomycin administration. Mice subjected to intratracheal administration of bleomycin developed significant lung injury. An increase in immunoreactivity to nitrotyrosine, poly(ADP ribose) polymerase (PARP) and inducible nitric oxide synthase as well as a significant loss of body weight and mortality was observed in the lung of bleomycin-treated mice. Administration of the two PPAR-gamma agonists rosiglitazone (10 mg x kg(-1) i.p.) and 15d-PGJ2 (30 microg x kg(-1) i.p.) significantly reduced the: 1) loss of body weight, 2) mortality rate, 3) infiltration of the lung with polymorphonuclear neutrophils (myeloperoxidase activity), 4) oedema formation, and 5) histological evidence of lung injury. Administration of rosiglitazone and 15d-PGJ2 also markedly reduced the nitrotyrosine, PARP and inducible nitric oxide synthase formation. In addition, treatment with the PPAR-gamma antagonist bisphenol A diglycidyl ether (1 mg x kg(-1) i.p. 30 min before the rosiglitazone or 15d-PGJ2) significantly antagonised the effect of the two PPAR-gamma agonists. These results demonstrate that the two peroxisome proliferator-activated receptor-gamma agonists, rosiglitazone and 15-deoxy-Delta12,14-prostaglandin J2, significantly reduce lung injury induced by bleomycin in mice.</text>
+        </passage>
+    </document>
+    <document>
+        <id>20133848</id>
+        <passage>
+            <infon key="type">title</infon>
+            <offset>0</offset>
+            <text>Inhibition of lactate dehydrogenase A induces oxidative stress and inhibits tumor progression.</text>
+        </passage>
+        <passage>
+            <infon key="type">abstract</infon>
+            <offset>95</offset>
+            <text>As the result of genetic alterations and tumor hypoxia, many cancer cells avidly take up glucose and generate lactate through lactate dehydrogenase A (LDHA), which is encoded by a target gene of c-Myc and hypoxia-inducible factor (HIF-1). Previous studies with reduction of LDHA expression indicate that LDHA is involved in tumor initiation, but its role in tumor maintenance and progression has not been established. Furthermore, how reduction of LDHA expression by interference or antisense RNA inhibits tumorigenesis is not well understood. Here, we report that reduction of LDHA by siRNA or its inhibition by a small-molecule inhibitor (FX11 [3-dihydroxy-6-methyl-7-(phenylmethyl)-4-propylnaphthalene-1-carboxylic acid]) reduced ATP levels and induced significant oxidative stress and cell death that could be partially reversed by the antioxidant N-acetylcysteine. Furthermore, we document that FX11 inhibited the progression of sizable human lymphoma and pancreatic cancer xenografts. When used in combination with the NAD(+) synthesis inhibitor FK866, FX11 induced lymphoma regression. Hence, inhibition of LDHA with FX11 is an achievable and tolerable treatment for LDHA-dependent tumors. Our studies document a therapeutical approach to the Warburg effect and demonstrate that oxidative stress and metabolic phenotyping of cancers are critical aspects of cancer biology to consider for the therapeutical targeting of cancer energy metabolism.</text>
+        </passage>
+    </document>
+    <document>
+        <id>20659490</id>
+        <passage>
+            <infon key="type">title</infon>
+            <offset>0</offset>
+            <text>Inflammatory effects of inhaled sulfur mustard in rat lung.</text>
+        </passage>
+        <passage>
+            <infon key="type">abstract</infon>
+            <offset>60</offset>
+            <text>Inhalation of sulfur mustard (SM), a bifunctional alkylating agent that causes severe lung damage, is a significant threat to both military and civilian populations. The mechanisms mediating its cytotoxic effects are unknown and were investigated in the present studies. Male rats Crl:CD(SD) were anesthetized, and then intratracheally intubated and exposed to 0.7-1.4mg/kg SM by vapor inhalation. Animals were euthanized 6, 24, 48h or 7days post-exposure and bronchoalveolar lavage fluid (BAL) and lung tissue collected. Exposure of rats to SM resulted in rapid pulmonary toxicity, including focal ulceration and detachment of the trachea and bronchial epithelia from underlying mucosa, thickening of alveolar septal walls and increased numbers of inflammatory cells in the tissue. There was also evidence of autophagy and apoptosis in the tissue. This was correlated with increased BAL protein content, a marker of injury to the alveolar epithelial lining. SM exposure also resulted in increased expression of markers of inflammation including cyclooxygenase-2 (COX-2), tumor necrosis factor-  (TNF ), inducible nitric oxide synthase (iNOS), and matrix metalloproteinase-9 (MMP-9), each of which has been implicated in pulmonary toxicity. Whereas COX-2, TNF  and iNOS were mainly localized in alveolar regions, MMP-9 was prominent in bronchial epithelium. In contrast, expression of the anti-oxidant hemeoxygenase, and the anti-inflammatory collectin, surfactant protein-D, decreased in the lung after SM exposure. These data demonstrate that SM-induced oxidative stress and injury are associated with the generation of cytotoxic inflammatory proteins which may contribute to the pathogenic response to this vesicant.</text>
+        </passage>
+    </document>
+</collection>
