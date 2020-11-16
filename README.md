@@ -37,7 +37,7 @@ $ pip install requirements.txt
 ## Data and model preparation
 <a name="preparation"></a>
 
-1. To run this code, you need to first download [the model file](https://ftp.ncbi.nlm.nih.gov/pub/lu/PhenoTagger/bio_embedding_intrinsic.zip) ( it includes some trained models, i.e., BioBERT-Base v1.1, pre-trained word embedding, two trained models for HPO concept recognition), then unzip and put the model folder into the Phenotagger folder.
+1. To run this code, you need to first download [the model file](https://ftp.ncbi.nlm.nih.gov/pub/lu/PhenoTagger/models.zip) ( it includes some trained models, i.e., BioBERT-Base v1.1, pre-trained word embedding, two trained models for HPO concept recognition), then unzip and put the model folder into the Phenotagger folder.
 2. The corpora used in the experiments are provided in */data/corpus.zip*. Please unzip the file, if you need to use them.
 
 ## Tagging free text with PhenoTagger
