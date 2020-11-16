@@ -37,7 +37,7 @@ $ pip install requirements.txt
 ## Data and model preparation
 <a name="preparation"></a>
 
-1. To run this code, you need to first download [the model file](https://ftp.ncbi.nlm.nih.gov/pub/lu/PhenoTagger/bio_embedding_intrinsic.zip) ( it includes some trained models, i.e., BioBERT-Base v1.1 (https://github.com/dmis-lab/biobert), pre-trained word embedding, two trained models for HPO concept recognition), then unzip and put the model folder into the Phenotagger folder.
+1. To run this code, you need to first download [the model file](https://ftp.ncbi.nlm.nih.gov/pub/lu/PhenoTagger/bio_embedding_intrinsic.zip) ( it includes some trained models, i.e., BioBERT-Base v1.1, pre-trained word embedding, two trained models for HPO concept recognition), then unzip and put the model folder into the Phenotagger folder.
 2. The corpora used in the experiments are provided in */data/corpus.zip*. Please unzip the file, if you need to use them.
 
 ## Tagging free text with PhenoTagger
@@ -52,7 +52,7 @@ The file requires 2 parameters:
 - --output, -o, help="output folder to save the tagged results"
 
 
-The file format can be in BioC(xml) or PubTator(tab-delimited text file) (click [here](https://www.ncbi.nlm.nih.gov/research/bionlp/APIs/format/) to see our format descriptions). The /example/ provides some examples. 
+The file format can be in BioC(xml) or PubTator(tab-delimited text file) (click [here](https://www.ncbi.nlm.nih.gov/research/bionlp/APIs/format/) to see our format descriptions). There are some examples in the */example/* folder. 
 
 Example:
 
@@ -144,9 +144,7 @@ After the program is finished, 2 files will be generated in the output folder:
 <a name="api"></a>
 We also provide Web API for PhenoTagger for ease of use. Due to the limitation of computing resources, the API is run on a CPU. If you have GPUs, we suggest you download the source code and run PhenoTagger on own server.
 
-You can use it to process raw text the same as [Pubtotar API](https://www.ncbi.nlm.nih.gov/research/pubtator/api.html).You need to set [Bioconcept] parameter to "Phenotype".
-
-The code samples in python are found in *API_pythonExample* folder. 
+You can use it to process raw text in the same way as [Pubtotar API](https://www.ncbi.nlm.nih.gov/research/pubtator/api.html). You need to set \[Bioconcept\] parameter to "Phenotype". The code samples in python are found in *API_pythonExample* folder. 
 
 The process consists of two primary steps 1) submitting requests and 2) retrieving results.
 	
@@ -186,12 +184,15 @@ $ python SubmitText_retrieve.py SessionNumber.txt output
 ```
 
 ## Performance on HPO GSC+
-The following Table shows the results of PhenoTagger with the CNN and BioBERT models on the GSC+ test set. Moreover, the training/test time on one NVIDIA Tesla V100 GPU is provided. You can choose the appropriate model according to your needs.
+<a name="performance"></a>
+
+The following Table shows the results of PhenoTagger with the CNN and BioBERT models on the GSC+ test set. And the training/test time on one NVIDIA Tesla V100 GPU is provided. You can choose the appropriate model according to your needs.
 
 | Method | Training/Test time | Men-P | Men-R | Men-F1 | Doc-P | Doc-R | Doc-F1 |
 | ----------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
 | PhenoTagger (CNN) | 2h56m/106s | 0.772 | 0.706 | 0.738 | 0.735 | 0.706 | 0.720 |
 | PhenoTagger (BioBERT) | 15h42m/152s | 0.789 | 0.722 | 0.754 | 0.774 | 0.740 | 0.757 |
+
 Here, *h*, *m*, *s* denotes hour, minute and second, respectively. 
 
 ## Disclaimer
