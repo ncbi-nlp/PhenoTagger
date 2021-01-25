@@ -2,7 +2,9 @@
 ***
 This repo contains the source code and dataset for the PhenoTagger.
 
-PhenoTagger is a hybrid method that combines dictionary and deep learning-based methods to recognize Human Phenotype Ontology (HPO) concepts in unstructured biomedical text. It is an ontology-driven method without requiring any manually labeled training data, as that is expensive and annotating a large-scale training dataset covering all classes of HPO concepts is highly challenging and unrealistic.
+PhenoTagger is a hybrid method that combines dictionary and deep learning-based methods to recognize Human Phenotype Ontology (HPO) concepts in unstructured biomedical text. It is an ontology-driven method without requiring any manually labeled training data, as that is expensive and annotating a large-scale training dataset covering all classes of HPO concepts is highly challenging and unrealistic. Please refer to our paper for more details:
+
+- [Ling Luo, Shankai Yan, Po-Ting Lai, Daniel Veltri, Andrew Oler, Sandhya Xirasagar, Rajarshi Ghosh, Morgan Similuk, Peter N Robinson, Zhiyong Lu. PhenoTagger: A Hybrid Method for Phenotype Concept Recognition using Human Phenotype Ontology. Bioinformatics, 2021, btab019.](https://doi.org/10.1093/bioinformatics/btab019)
 
 ## Content
 - [Dependency package](#package)
@@ -11,6 +13,8 @@ PhenoTagger is a hybrid method that combines dictionary and deep learning-based 
 - [Instructions for training PhenoTagger](#training)
 - [Web API for PhenoTagger](#api)
 - [Performance on HPO GSC+](#performance)
+- [Citing PhenoTagger](#citing)
+- [Acknowledgments](#ac)
 
 ## Dependency package
 <a name="package"></a>
@@ -197,6 +201,22 @@ The following Table shows the results of PhenoTagger with the CNN and BioBERT mo
 | PhenoTagger (BioBERT) | 15h42m/152s | 0.789 | 0.722 | 0.754 | 0.774 | 0.740 | 0.757 |
 
 Here, *h*, *m*, *s* denotes hour, minute and second, respectively. 
+
+
+## Citing PhenoTagger
+<a name="citing"></a>
+
+If you're using PhenoTagger, please cite:
+
+*  Ling Luo, Shankai Yan, Po-Ting Lai, Daniel Veltri, Andrew Oler, Sandhya Xirasagar, Rajarshi Ghosh, Morgan Similuk, Peter N Robinson, Zhiyong Lu. [PhenoTagger: A Hybrid Method for Phenotype Concept Recognition using Human Phenotype Ontology](https://doi.org/10.1093/bioinformatics/btab019). Bioinformatics, 2021, btab019.
+
+
+## Acknowledgments 
+<a name="ac"></a>
+
+This research is supported by the Intramural Research Programs of the National Institutes of Health, National Library of Medicine.
+Thanks to Dr. Chih-Hsuan Wei for his help with Web APIs.
+
 
 ## Disclaimer
 
