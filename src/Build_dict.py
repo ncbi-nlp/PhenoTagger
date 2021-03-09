@@ -36,16 +36,19 @@ def get_all_child(all_obo,root_node):
     for i in range(2,len(all_obo)):
         lines=all_obo[i].split('\n')
         for line in lines:
-            if line[0:len('id: HP:')]=='id: HP:':
+            if line.startswith('id: ')>0: #[0:len('id: HP:')]=='id: HP:':
                 hpoid=line[len('id: '):]
-            elif line[0:len('is_a: ')]=='is_a: ':
-                father_hpoid=line[len('is_a: '):line.find(' ! ')]
+            elif line.startswith('is_a: ')>0:#[0:len('is_a: ')]=='is_a: ':
+                if line.find(' ! ')>=0:
+                    father_hpoid=line[len('is_a: '):line.find(' ! ')]
+                else:
+                    father_hpoid=line[len('is_a: '):]
         if father_hpoid not in tree_obo.keys():
             tree_obo[father_hpoid]=[hpoid]
         else:
             if hpoid not in tree_obo[father_hpoid]:
                 tree_obo[father_hpoid].append(hpoid)
-#    print(len(tree_obo))
+    # print(len(tree_obo),root_node)
     for ele in root_node:
         get_child(tree_obo,ele)
     return ALL_CLEAN_NODE
@@ -84,6 +87,7 @@ def build_dict(hpofile, outpath,rootnode):
 
     
     all_nodes=get_all_child(all_obo,rootnode) #get all nodes
+    #print(len(all_nodes))
     for ele in all_nodes:
         fout_nodes.write(ele+'\n')
     fout_nodes.write('HP:None'+'\n') #neg label
@@ -93,6 +97,7 @@ def build_dict(hpofile, outpath,rootnode):
     
     hpo_obo={}
     for i in range(2,len(all_obo)):
+        print("Obo File Processing:{0}%".format(round(i * 100 / len(all_obo))), end="\r")
         lines=all_obo[i].split('\n')
         first_name=[]
         synonym_list=[]
@@ -103,24 +108,20 @@ def build_dict(hpofile, outpath,rootnode):
         xref_list=[]
         isa_list=[]
         for line in lines:
-            if line.find('id: HP:')==0:
+            if line.startswith('id: ')>0: #find('id: HP:')==0:
                 hpoid=line[len('id: '):]
             elif line.find('name:')==0:
                 term=line[len('name: '):]
-                if term.isupper():
-                    pass
-#                    print('first name:',term)
-                else:
-                    tokens = word_tokenize(term.strip().lower().replace('-',' - ').replace('/',' / '))  
-                    token_pos = nltk.pos_tag(tokens)
-                    lemmas = [lemmatizer.lemmatize(token[0], get_wordnet_pos(token[1])) for token in token_pos]    
-                    first_name_ori=' '.join(tokens)
-                    first_name_lemma=' '.join(lemmas)
-                    first_name=[first_name_ori,first_name_lemma]
-                    
-                    if hpoid in all_nodes:  #input dict
-                        hpo_dict[first_name_ori]=len(tokens)
-                        hpo_dict[first_name_lemma]=len(lemmas)
+                tokens = word_tokenize(term.strip().lower().replace('-',' - ').replace('/',' / '))  
+                token_pos = nltk.pos_tag(tokens)
+                lemmas = [lemmatizer.lemmatize(token[0], get_wordnet_pos(token[1])) for token in token_pos]    
+                first_name_ori=' '.join(tokens)
+                first_name_lemma=' '.join(lemmas)
+                first_name=[first_name_ori,first_name_lemma]
+                
+                if hpoid in all_nodes:  #input dict
+                    hpo_dict[first_name_ori]=len(tokens)
+                    hpo_dict[first_name_lemma]=len(lemmas)
                     
             elif line.find('alt_id: ')==0:
                 alt_id=line[len('alt_id: '):]
@@ -132,7 +133,7 @@ def build_dict(hpofile, outpath,rootnode):
             elif line.find('synonym:')==0:
                 eid=line.find('" ')
                 term=line[len('synonym: "'):eid]
-                if term.isupper():
+                if term.isupper() and len(term)<10:
                     pass
 #                    print('synonym name:',term)
                 else:
@@ -154,8 +155,10 @@ def build_dict(hpofile, outpath,rootnode):
                 if xref_id not in xref_list:
                     xref_list.append(xref_id)
             elif line.find('is_a: ')==0:
-                eid=line.find(' ! ')
-                isa_id=line[len('is_a: '):eid]
+                if line.find(' ! ')>=0:
+                    isa_id=line[len('is_a: '):line.find(' ! ')]
+                else:
+                    isa_id=line[len('is_a: '):]
                 if isa_id not in isa_list:
                     isa_list.append(isa_id)
             elif line.find('is_obsolete: ')==0:
@@ -182,6 +185,7 @@ def word_hpo_map(hpo_obo, outpath):
     word_hpoid={}
 
     for hpoid in hpo_obo.keys():
+        # print(hpoid)
         first_name_ori=hpo_obo[hpoid]['name'][0]
         first_name=hpo_obo[hpoid]['name'][1]
         if first_name!=first_name_ori:
@@ -293,16 +297,17 @@ def hpo_word_map(hpo_obo, outpath):
 if __name__=="__main__":
     
     parser = argparse.ArgumentParser(description='build ontogoly dictionary, python Build_dict.py -i infile -o outpath -r rootnode')
-    parser.add_argument('--input', '-i', help="input the ontology .obo file",default='../ontology/hp.obo')
+    parser.add_argument('--input', '-i', help="input the ontology .obo file",default='../ontology/hp.obo') # hp.obo CTD_diseases.obo chebi.obo
     parser.add_argument('--output', '-o', help="the output path of dictionary",default='../dict/')
-    parser.add_argument('--rootnode','-r',help="input the root node of the ontogyly",nargs='+', default=['HP:0000118'])
+    parser.add_argument('--rootnode','-r',help="input the root node of the ontogyly",nargs='+', default=['HP:0000118'])#HP:0000118 MESH:C CHEBI:24431
     args = parser.parse_args()
     if not os.path.exists(args.output):
         os.makedirs(args.output)
 
     print('building dictionary........')
     hpo_obo=build_dict(args.input,args.output,args.rootnode)
-    
+    # hpo_obo=json.load(open('../dict/obo.json','r',encoding='utf-8'))
+    print('generating mapping files')
     word_hpo_map(hpo_obo, args.output)
     
     hpo_word_map(hpo_obo, args.output)
