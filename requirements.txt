@@ -1,4 +1,4 @@
-TensorFlow==2.3.0
+TensorFlow==2.5.1
 Keras==2.4.3
 nltk==3.5
 keras-bert==0.86.0
