@@ -33,24 +33,39 @@ ALL_CLEAN_NODE=[]
 def get_all_child(all_obo,root_node):
     global ALL_CLEAN_NODE
     tree_obo={}
-    for i in range(2,len(all_obo)):
+    temp_id=[]
+    for i in range(0,len(all_obo)):
         lines=all_obo[i].split('\n')
+        if lines[0]!='[Term]':
+            continue
+        is_flag=0
         for line in lines:
             if line.startswith('id: ')>0: #[0:len('id: HP:')]=='id: HP:':
                 hpoid=line[len('id: '):]
+                temp_id.append(hpoid)
             elif line.startswith('is_a: ')>0:#[0:len('is_a: ')]=='is_a: ':
+                is_flag=1
                 if line.find(' ! ')>=0:
                     father_hpoid=line[len('is_a: '):line.find(' ! ')]
                 else:
                     father_hpoid=line[len('is_a: '):]
+        if is_flag==0:
+            #print('is_a none:',lines)
+            continue
         if father_hpoid not in tree_obo.keys():
             tree_obo[father_hpoid]=[hpoid]
         else:
             if hpoid not in tree_obo[father_hpoid]:
                 tree_obo[father_hpoid].append(hpoid)
     # print(len(tree_obo),root_node)
-    for ele in root_node:
-        get_child(tree_obo,ele)
+    #print(root_node)
+    if root_node==['None']:
+        print('no root_node, build the dict using all terms.')
+        ALL_CLEAN_NODE=temp_id
+    else:
+        print('root_node:',root_node)
+        for ele in root_node:
+            get_child(tree_obo,ele)
     return ALL_CLEAN_NODE
 def get_child(tree_obo,hpoid):
     global ALL_CLEAN_NODE
@@ -96,9 +111,11 @@ def build_dict(hpofile, outpath,rootnode):
     fout_obo=open(outpath+'obo.json','w',encoding='utf-8')
     
     hpo_obo={}
-    for i in range(2,len(all_obo)):
+    for i in range(0,len(all_obo)):
         print("Obo File Processing:{0}%".format(round(i * 100 / len(all_obo))), end="\r")
         lines=all_obo[i].split('\n')
+        if lines[0]!='[Term]':
+            continue
         first_name=[]
         synonym_list=[]
         alt_id_list=[]
