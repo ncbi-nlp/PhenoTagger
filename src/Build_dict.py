@@ -182,8 +182,8 @@ def build_dict(hpofile, outpath,rootnode):
                 is_obsolete=line[len('is_obsolete: '):]
             elif line.find('replaced_by: ')==0:
                 replace_id=line[len('replaced_by: '):]
-                
-        hpo_obo[hpoid]={'name':first_name,'alt_id':alt_id_list,'def':def_string,'synonym':synonym_list,'xref':xref_list,'is_a':isa_list,'is_obsolete':is_obsolete,'replace_id':replace_id}
+        if first_name!=[]:  
+            hpo_obo[hpoid]={'name':first_name,'alt_id':alt_id_list,'def':def_string,'synonym':synonym_list,'xref':xref_list,'is_a':isa_list,'is_obsolete':is_obsolete,'replace_id':replace_id}
     
     sort_hpo_dict=sorted(hpo_dict.items(), key=lambda kv:(kv[1], kv[0]), reverse=False)
     for ele in sort_hpo_dict:
