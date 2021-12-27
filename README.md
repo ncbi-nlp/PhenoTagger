@@ -148,7 +148,7 @@ After the program is finished, 2 files will be generated in the output folder:
 <a name="api"></a>
 We also provide Web API for PhenoTagger for ease of use. Due to the limitation of computing resources, the API is run on a CPU. If you have GPUs, we suggest you download the source code and run PhenoTagger on own server.
 
-You can use it to process raw text in the same way as [Pubtotar API](https://www.ncbi.nlm.nih.gov/research/pubtator/api.html). You need to set \[Bioconcept\] parameter to "Phenotype". The code samples in python are found in *API_pythonExample* folder. 
+You can use it to process raw text in the same way as [Pubtotar API](https://www.ncbi.nlm.nih.gov/research/pubtator/api.html). You need to set \[Bioconcept\] parameter to "Phenotype". The code samples in python are found in *API_pythonExample* folder. We suggest the user use PubTator or BioC-XML formats. 
 
 The process consists of two primary steps 1) submitting requests and 2) retrieving results.
 	
