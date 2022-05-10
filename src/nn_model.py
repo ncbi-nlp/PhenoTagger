@@ -13,7 +13,7 @@ from nn_represent import CNN_RepresentationLayer,BERT_RepresentationLayer
 from keras.layers import *
 from keras.models import Model
 from keras_bert import load_trained_model_from_checkpoint
-from Transformer_keras import TransformerBlock
+
 
 '''
 import keras.backend.tensorflow_backend as KTF
@@ -87,9 +87,7 @@ class bioTag_CNN():
         elif model_test_type=='lstm':
             bilstm = Bidirectional(LSTM(200, return_sequences=True, implementation=2, dropout=0.4, recurrent_dropout=0.4), name='bilstm1')(concate_vec)
             cnn = GlobalMaxPooling1D()(bilstm)
-        elif model_test_type=='transformer':
-            cnn = TransformerBlock(embed_dim=300, num_heads=2, ff_dim=300,rate=0.2)(concate_vec)
-            cnn = GlobalMaxPooling1D()(cnn)
+
     
         dense = Dense(1024, activation='relu')(cnn)
         dense= Dropout(0.4)(dense)
@@ -103,7 +101,7 @@ class bioTag_CNN():
 class bioTag_BERT():
     def __init__(self, model_files):
         self.model_type='bert'
-        self.maxlen = 64
+        self.maxlen = 32
         config_path = model_files['config_path']
         checkpoint_path = model_files['checkpoint_path']
         vocab_path = model_files['vocab_path']

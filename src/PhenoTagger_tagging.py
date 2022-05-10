@@ -40,6 +40,8 @@ def PubTator_Converter(infile,outfile,biotag_dic,nn_model,para_set):
                     fout.write(pmid+"|a|"+abstract+"\n")
                 else:  # annotation
                     intext=title+' '+abstract
+                    #print('..........',pmid)
+                    #print(intext)
                     tag_result=bioTag(intext,biotag_dic,nn_model,onlyLongest=para_set['onlyLongest'], abbrRecog=para_set['abbrRecog'],Threshold=para_set['ML_Threshold'])
                     for ele in tag_result:
                         start = ele[0]
@@ -59,9 +61,10 @@ def BioC_Converter(infile,outfile,biotag_dic,nn_model,para_set):
         with open(outfile,'w', encoding='utf8') as fout:
             collection = bioc.load(fin)
             for document in collection.documents:
+                mention_num=0
                 for passage in document.passages:
-                    tag_result=bioTag(passage.text,biotag_dic,nn_model,onlyLongest=para_set['onlyLongest'], abbrRecog=para_set['abbrRecog'],Threshold=para_set['ML_Threshold'])
-                    mention_num=0
+                    passage_offset=passage.offset
+                    tag_result=bioTag(passage.text,biotag_dic,nn_model,onlyLongest=para_set['onlyLongest'], abbrRecog=para_set['abbrRecog'],Threshold=para_set['ML_Threshold']) 
                     for ele in tag_result:
                         bioc_note = bioc.BioCAnnotation()
                         bioc_note.id = str(mention_num)
@@ -71,7 +74,7 @@ def BioC_Converter(infile,outfile,biotag_dic,nn_model,para_set):
                         bioc_note.infons['score'] = ele[3]
                         start = int(ele[0])
                         last = int(ele[1])
-                        loc = bioc.BioCLocation(offset=str(start), length= str(last-start))
+                        loc = bioc.BioCLocation(offset=str(passage_offset+start), length= str(last-start))
                         bioc_note.locations.append(loc)
                         bioc_note.text = passage.text[start:last]
                         passage.annotations.append(bioc_note)
@@ -84,17 +87,23 @@ def phenotagger_tag(infolder,para_set,outfolder):
               'hpo_word_file':'../dict/id_word_map.json'}
     
     if para_set['model_type']=='cnn':
-        vocabfiles={'w2vfile':'../models/bio_embedding_intrinsic.d200',   
+        vocabfiles={'w2vfile':'../models_v1.1/bio_embedding_intrinsic.d200',   
                     'charfile':'../dict/char.vocab',
                     'labelfile':'../dict/lable.vocab',
                     'posfile':'../dict/pos.vocab'}
-        modelfile='../models/cnn_hpo.h5'
+        modelfile='../models_v1.1/cnn_hpo_v1.1.h5'
+    elif para_set['model_type']=='bioformer':
+        vocabfiles={'labelfile':'../dict/lable.vocab',
+                    'config_path':'../models_v1.1/bioformer-cased-v1.0/bert_config.json',
+                    'checkpoint_path':'../models_v1.1/bioformer-cased-v1.0/bioformer-cased-v1.0-model.ckpt-2000000',
+                    'vocab_path':'../models_v1.1/bioformer-cased-v1.0/vocab.txt'}
+        modelfile='../models_v1.1/bioformer_hpo_v1.1.h5'
     else:
         vocabfiles={'labelfile':'../dict/lable.vocab',
-                    'config_path':'../models/biobert_v11_pubmed/bert_config.json',
-                    'checkpoint_path':'../models/biobert_v11_pubmed/model.ckpt-1000000',
-                    'vocab_path':'../models/biobert_v11_pubmed/vocab.txt'}
-        modelfile='../models/biobert_hpo.h5'
+                    'config_path':'../models_v1.1/biobert_v11_pubmed/bert_config.json',
+                    'checkpoint_path':'../models_v1.1/biobert_v11_pubmed/model.ckpt-1000000',
+                    'vocab_path':'../models_v1.1/biobert_v11_pubmed/vocab.txt'}
+        modelfile='../models_v1.1/biobert_hpo_v1.1.h5'
     
     # loading dict and model
         
@@ -153,7 +162,7 @@ if __name__=="__main__":
         os.makedirs(args.outfolder)
 
     para_set={
-              'model_type':'biobert', # cnn or biobert
+              'model_type':'bioformer', # cnn, bioformer, or biobert
               'onlyLongest':False, # False: return overlap concepts, True only longgest
               'abbrRecog':True,# False: don't identify abbr, True: identify abbr
               'ML_Threshold':0.95,# the Threshold of deep learning model

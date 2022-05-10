@@ -22,7 +22,7 @@ def bioTag(text,biotag_dic,ml_model,onlyLongest=False, abbrRecog=False, Threshol
 
 #    startTime=time.time()
     ssplit_token=ssplit_token_pos_lemma(text)
-#    print(ssplit_token) 
+    #print(ssplit_token) 
 #    print('ssplit token:',time.time()-startTime)
     
 #    startTime=time.time()

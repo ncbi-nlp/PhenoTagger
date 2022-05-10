@@ -143,7 +143,8 @@ class dic_ont():
                     temp_sent=sentence[0:ele[1]]
                     eid=str(len(temp_sent.rstrip().split(' '))-1)
 #                    print(sid,eid,entity_text,hpoid[0])
-                    fout.write(sid+'\t'+eid+'\t'+entity_text+'\t'+";".join(hpoid)+'\t1.00\n')        
+                    #fout.write(sid+'\t'+eid+'\t'+entity_text+'\t'+";".join(hpoid)+'\t1.00\n')
+                    fout.write(sid+'\t'+eid+'\t'+entity_text+'\t'+hpoid[0]+'\t1.00\n')        
                 fout.write('\n')
         
         return fout.getvalue()

@@ -160,8 +160,8 @@ if __name__=="__main__":
     
     parser = argparse.ArgumentParser(description='build distant training corpus, python Build_distant_corpus.py -d dictpath -f fileneg  -n number_of_neg -o outpath')
     parser.add_argument('--dict', '-d', help="the input path of the ontology dictionary",default='../dict/')
-    parser.add_argument('--fileneg', '-f', help="the text file used to generate the negatives",default='../mutation_disease.txt')
-    parser.add_argument('--negnum', '-n', help="the number of negatives ",type=int, default=10000)
+    parser.add_argument('--fileneg', '-f', help="the text file used to generate the negatives",default='../data/mutation_disease.txt')
+    parser.add_argument('--negnum', '-n', help="the number of negatives ",type=int, default=50000)
     parser.add_argument('--output', '-o', help="the output folder of the distantly-supervised training dataset",default='../data/distant_train_data/')
     args = parser.parse_args()
 

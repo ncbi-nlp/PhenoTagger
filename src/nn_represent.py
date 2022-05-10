@@ -123,7 +123,7 @@ class CNN_RepresentationLayer(object):
         return label_list
             
     
-    def represent_instances_all_feas(self, instances, labels, word_max_len=100, char_max_len=50):
+    def represent_instances_all_feas(self, instances, labels, word_max_len=100, char_max_len=50, training=False):
 
         x_text_list=[]
         x_word_list=[]
@@ -175,14 +175,22 @@ class CNN_RepresentationLayer(object):
             x_char_list.append(sentence_word_list)
             x_lemma_list.append(sentence_lemma_list)
             x_pos_list.append(sentence_pos_list)
-
-        y_list=self.generate_label_list(labels)
-        x_word_np = pad_sequences(x_word_list, word_max_len, value=0, padding='post',truncating='post')  # right padding
-        x_char_np = pad_sequences(x_char_list, word_max_len, value=0, padding='post',truncating='post')
-        x_lemma_np = pad_sequences(x_lemma_list, word_max_len, value=0, padding='post',truncating='post')                
-        x_pos_np = pad_sequences(x_pos_list, word_max_len, value=0, padding='post',truncating='post')
-        y_np = np.array(y_list)
         
+        if training==True:
+            y_list=self.generate_label_list(labels)
+            x_word_np = pad_sequences(x_word_list, word_max_len, value=0, padding='post',truncating='post')  # right padding
+            x_char_np = pad_sequences(x_char_list, word_max_len, value=0, padding='post',truncating='post')
+            x_lemma_np = pad_sequences(x_lemma_list, word_max_len, value=0, padding='post',truncating='post')                
+            x_pos_np = pad_sequences(x_pos_list, word_max_len, value=0, padding='post',truncating='post')
+            y_np = np.array(y_list)
+            
+        else:
+            x_word_np = pad_sequences(x_word_list, word_max_len, value=0, padding='post',truncating='post')  # right padding
+            x_char_np = pad_sequences(x_char_list, word_max_len, value=0, padding='post',truncating='post')
+            x_lemma_np=[]
+            x_pos_np=[]
+            y_np=[]
+            
         return [x_word_np, x_char_np, x_lemma_np,  x_pos_np, x_text_list], y_np        
 
 
@@ -228,7 +236,7 @@ class BERT_RepresentationLayer(object):
             label_list.append(temp_label)
         return label_list
     
-    def load_data(self,instances, labels,  word_max_len=100):
+    def load_data(self,instances, labels,  word_max_len=100,training=False):
     
         x_index=[]
         x_seg=[]
@@ -244,11 +252,17 @@ class BERT_RepresentationLayer(object):
             x_index.append(x1)
             x_seg.append(x2)                
         
-        y_list=self.generate_label_list(labels)
+        if training==True:
+            y_list=self.generate_label_list(labels)
         
-        x1_np = pad_sequences(x_index, word_max_len, value=0, padding='post',truncating='post')  # right padding
-        x2_np = pad_sequences(x_seg, word_max_len, value=0, padding='post',truncating='post')
-        y_np = np.array(y_list)
+            x1_np = pad_sequences(x_index, word_max_len, value=0, padding='post',truncating='post')  # right padding
+            x2_np = pad_sequences(x_seg, word_max_len, value=0, padding='post',truncating='post')
+            y_np = np.array(y_list)
+        
+        else:
+            x1_np = pad_sequences(x_index, word_max_len, value=0, padding='post',truncating='post')  # right padding
+            x2_np = pad_sequences(x_seg, word_max_len, value=0, padding='post',truncating='post')
+            y_np=[]
 
         return [x1_np, x2_np], y_np  
 

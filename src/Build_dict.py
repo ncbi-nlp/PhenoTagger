@@ -310,11 +310,25 @@ def hpo_word_map(hpo_obo, outpath):
     json.dump(hpoid_word, fout,indent=2)
     fout.close()    
 
+def alt_hpo(hpo_obo,outpath):
+    fout=open(outpath+'alt_hpoid.json','w',encoding='utf-8')
+    alt_hpoid={}
+    for hpoid in hpo_obo.keys():
+        
+        if hpo_obo[hpoid]['is_obsolete']=='':
+            alt_hpoid[hpoid]=hpoid
+            for ele in hpo_obo[hpoid]['alt_id']:
+                if ele not in alt_hpoid.keys():
+                    alt_hpoid[ele]=hpoid
+                else:
+                    pass
+                    # print('alt_id:',ele,'old:',alt_hpoid[ele])
+    json.dump(alt_hpoid, fout ,indent=2)
 
 if __name__=="__main__":
     
     parser = argparse.ArgumentParser(description='build ontogoly dictionary, python Build_dict.py -i infile -o outpath -r rootnode')
-    parser.add_argument('--input', '-i', help="input the ontology .obo file",default='../ontology/hp.obo') # hp.obo CTD_diseases.obo chebi.obo
+    parser.add_argument('--input', '-i', help="input the ontology .obo file",default='../ontology/hp_202204.obo') # hp.obo CTD_diseases.obo chebi.obo
     parser.add_argument('--output', '-o', help="the output path of dictionary",default='../dict/')
     parser.add_argument('--rootnode','-r',help="input the root node of the ontogyly",nargs='+', default=['HP:0000118'])#HP:0000118 MESH:C CHEBI:24431
     args = parser.parse_args()
@@ -328,6 +342,8 @@ if __name__=="__main__":
     word_hpo_map(hpo_obo, args.output)
     
     hpo_word_map(hpo_obo, args.output)
+    
+    alt_hpo(hpo_obo,args.output)
     
     print('building dictionary done........')
 

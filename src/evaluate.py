@@ -447,13 +447,174 @@ def GSCplus_corpus(prefile,goldfile,subtree=True):
     men_f=mention_metric_new(pre_result,gold_result)
     return doc_f+men_f
 
+def GSCplus_corpus_hponew(prefile,goldfile,subtree=True):
+    fin_pre=open(prefile,'r',encoding='utf-8')
+    fin_gold=open(goldfile,'r',encoding='utf-8')
+    #fin_alt=open('//panfs/pan1/bionlp/lulab/luoling/HPO_project/bioTag/data/evaluation/alt_hpoid.json','r',encoding='utf-8')
+    #fin_subtree=open('//panfs/pan1/bionlp/lulab/luoling/HPO_project/bioTag/data/evaluation/hpo_lable.vocab','r',encoding='utf-8')
+    fin_alt=open('../dict_hponew/alt_hpoid.json','r',encoding='utf-8')
+    fin_subtree=open('../dict_hponew/lable.vocab','r',encoding='utf-8')
+    alt_hpoid=json.load(fin_alt)
+    fin_alt.close()
+    subtree_list=fin_subtree.read().strip().split('\n')
+    fin_subtree.close()
+    all_pre=fin_pre.read().strip().split('\n\n')
+    all_gold=fin_gold.read().strip().split('\n\n')
+    fin_gold.close()
+    fin_pre.close()
+    pre_result={}
+    gold_result={}
+    for doc_pre in all_pre:
+        lines=doc_pre.split('\n')
+        pmid=lines[0]
+        temp_result=[]
+        for i in range(2,len(lines)):
+            seg=lines[i].split('\t')
+            if seg[3] in alt_hpoid.keys():
+                hpoid=alt_hpoid[seg[3]]
+                if subtree==True:
+                    if hpoid in subtree_list:
+                        temp_result.append([seg[0],seg[1],hpoid])
+                else:
+                    temp_result.append([seg[0],seg[1],hpoid])
+            else:
+                print('pre hpo obo no this id:',lines[i],seg[3])
+
+        pre_result[pmid]=temp_result
+
+    for doc_gold in all_gold:
+        lines=doc_gold.split('\n')
+        pmid=lines[0]
+        temp_result=[]
+        for i in range(2,len(lines)):
+            seg=lines[i].split('\t')
+            if seg[3] in alt_hpoid.keys():
+                hpoid=alt_hpoid[seg[3]]
+                if subtree==True:
+                    if hpoid in subtree_list:
+                        temp_result.append([seg[0],seg[1],hpoid])
+                else:
+                    temp_result.append([seg[0],seg[1],hpoid])
+            else:
+                print('gold hpo obo no this id:',lines[i],seg[3])
+        gold_result[pmid]=temp_result
+    doc_f=document_metric(pre_result,gold_result)
+    men_f=mention_metric_new(pre_result,gold_result)
+    return doc_f+men_f
+
+def GSCplus_corpus_sub(subfiles,prefile,goldfile,subtree=True):
+    fin_pre=open(prefile,'r',encoding='utf-8')
+    fin_gold=open(goldfile,'r',encoding='utf-8')
+    #fin_alt=open('//panfs/pan1/bionlp/lulab/luoling/HPO_project/bioTag/data/evaluation/alt_hpoid.json','r',encoding='utf-8')
+    #fin_subtree=open('//panfs/pan1/bionlp/lulab/luoling/HPO_project/bioTag/data/evaluation/hpo_lable.vocab','r',encoding='utf-8')
+    fin_alt=open(subfiles['alt_file'],'r',encoding='utf-8')
+    fin_subtree=open(subfiles['subtree_file'],'r',encoding='utf-8')
+    alt_hpoid=json.load(fin_alt)
+    fin_alt.close()
+    subtree_list=fin_subtree.read().strip().split('\n')
+    fin_subtree.close()
+    all_pre=fin_pre.read().strip().split('\n\n')
+    all_gold=fin_gold.read().strip().split('\n\n')
+    fin_gold.close()
+    fin_pre.close()
+    pre_result={}
+    gold_result={}
+    for doc_pre in all_pre:
+        lines=doc_pre.split('\n')
+        pmid=lines[0]
+        temp_result=[]
+        for i in range(2,len(lines)):
+            seg=lines[i].split('\t')
+            if seg[3] in alt_hpoid.keys():
+                hpoid=alt_hpoid[seg[3]]
+                if subtree==True:
+                    if hpoid in subtree_list:
+                        temp_result.append([seg[0],seg[1],hpoid])
+                else:
+                    temp_result.append([seg[0],seg[1],hpoid])
+            else:
+                print('pre hpo obo no this id:',lines[i],seg[3])
+
+        pre_result[pmid]=temp_result
+
+    for doc_gold in all_gold:
+        lines=doc_gold.split('\n')
+        pmid=lines[0]
+        temp_result=[]
+        for i in range(2,len(lines)):
+            seg=lines[i].split('\t')
+            if seg[3] in alt_hpoid.keys():
+                hpoid=alt_hpoid[seg[3]]
+                if subtree==True:
+                    if hpoid in subtree_list:
+                        temp_result.append([seg[0],seg[1],hpoid])
+                else:
+                    temp_result.append([seg[0],seg[1],hpoid])
+            else:
+                print('gold hpo obo no this id:',lines[i],seg[3])
+        gold_result[pmid]=temp_result
+    doc_f=document_metric(pre_result,gold_result)
+    men_f=mention_metric_new(pre_result,gold_result)
+    return doc_f+men_f
+
 def JAX_corpus(prefile,goldfile,subtree=True):
     fin_pre=open(prefile,'r',encoding='utf-8')
     fin_gold=open(goldfile,'r',encoding='utf-8')
     #fin_alt=open('//panfs/pan1/bionlp/lulab/luoling/HPO_project/bioTag/data/evaluation/alt_hpoid.json','r',encoding='utf-8')
     #fin_subtree=open('//panfs/pan1/bionlp/lulab/luoling/HPO_project/bioTag/data/evaluation/hpo_lable.vocab','r',encoding='utf-8')
-    fin_alt=open('../data/vocab/alt_hpoid.json','r',encoding='utf-8')
-    fin_subtree=open('../data/vocab/hpo_lable.vocab','r',encoding='utf-8')
+    fin_alt=open('../dict/alt_hpoid.json','r',encoding='utf-8')
+    fin_subtree=open('../dict/lable.vocab','r',encoding='utf-8')
+    alt_hpoid=json.load(fin_alt)
+    fin_alt.close()
+    subtree_list=fin_subtree.read().strip().split('\n')
+    fin_subtree.close()
+    all_pre=json.load(fin_pre)
+    all_gold=json.load(fin_gold)
+    fin_gold.close()
+    fin_pre.close()
+    pre_result={}
+    gold_result={}
+    for pmid in all_pre.keys():
+        pre_temp_result=[]
+        #for pre_hpoid in all_pre[pmid].keys():
+        #    pre_hpoid=pre_hpoid.split('|')[0]
+        for ele in all_pre[pmid]:
+            pre_hpoid=ele[2].split('|')[0]
+            if pre_hpoid in alt_hpoid.keys():
+                hpoid=alt_hpoid[pre_hpoid]
+                if subtree==True:
+                    if hpoid in subtree_list:
+                        pre_temp_result.append(['0','0',hpoid])
+                else:
+                    pre_temp_result.append(['0','0',hpoid])
+            else:
+                print('pre hpo obo no this id:',pre_hpoid)
+           
+        pre_result[pmid]=pre_temp_result
+        
+        gold_temp_result=[]
+        for gold_hpoid in all_gold[pmid].keys():
+            if gold_hpoid in alt_hpoid.keys():
+                hpoid=alt_hpoid[gold_hpoid]
+                if subtree==True:
+                    if hpoid in subtree_list:
+                        gold_temp_result.append(['0','0',hpoid])
+                else:
+                    gold_temp_result.append(['0','0',hpoid])
+            else:
+                print('pre hpo obo no this id:',gold_hpoid)
+           
+        gold_result[pmid]=gold_temp_result
+        
+    document_metric(pre_result,gold_result)
+
+def JAX_corpus_hponew(prefile,goldfile,subtree=True):
+    fin_pre=open(prefile,'r',encoding='utf-8')
+    fin_gold=open(goldfile,'r',encoding='utf-8')
+    #fin_alt=open('//panfs/pan1/bionlp/lulab/luoling/HPO_project/bioTag/data/evaluation/alt_hpoid.json','r',encoding='utf-8')
+    #fin_subtree=open('//panfs/pan1/bionlp/lulab/luoling/HPO_project/bioTag/data/evaluation/hpo_lable.vocab','r',encoding='utf-8')
+    fin_alt=open('../dict_hponew/alt_hpoid.json','r',encoding='utf-8')
+    fin_subtree=open('../dict_hponew/lable.vocab','r',encoding='utf-8')
     alt_hpoid=json.load(fin_alt)
     fin_alt.close()
     subtree_list=fin_subtree.read().strip().split('\n')
@@ -564,4 +725,11 @@ def general_corpus(prefile,goldfile):
     return doc_f+men_f    
 if __name__=='__main__':
 #    alt_hpo()
-    GSCplus_corpus_gold()
+    #GSCplus_corpus_gold()
+    #path='//panfs/pan1/bionlp/lulab/luoling/HPO_project/diseaseTag/data/test/'
+    #prefile=path+'NCBItestset.output'
+    #goldfile=path+'NCBI_test_gold.tsv'
+    #general_corpus(prefile,goldfile)
+    #JAX_corpus('../results/jax_bioformer_95.tsv', '../data/corpus/JAX/JAX_gold.json')
+    path='//panfs/pan1/bionlplab/luol2/HPO_project/PhenoTagger_v1.1/results/'
+    GSCplus_corpus_hponew(path+'gsc_test_bioformer_95_nonest.tsv',path+'GSCplus_test_gold_nonest.tsv',subtree=True)

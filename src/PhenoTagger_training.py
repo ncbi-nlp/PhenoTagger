@@ -43,7 +43,7 @@ def CNN_training(trainfiles,vocabfiles,modelfile,EPOCH=50):
     trainfile=trainfiles['trainfile']
     train_set,train_label = ml_intext(trainfile)
 
-    train_x, train_y = cnn_model.rep.represent_instances_all_feas(train_set,train_label,word_max_len=cnn_model.hyper['sen_max'],char_max_len=cnn_model.hyper['word_max'])
+    train_x, train_y = cnn_model.rep.represent_instances_all_feas(train_set,train_label,word_max_len=cnn_model.hyper['sen_max'],char_max_len=cnn_model.hyper['word_max'],training=True)
     input_train = []
 
     if cnn_model.fea_dict['word'] == 1:
@@ -103,7 +103,7 @@ def BERT_training(trainfiles,vocabfiles,modelfile,EPOCH=50):
 
     train_set,train_label = ml_intext(trainfile)
 
-    train_x,train_y=bert_model.rep.load_data(train_set,train_label,word_max_len=bert_model.maxlen)
+    train_x,train_y=bert_model.rep.load_data(train_set,train_label,word_max_len=bert_model.maxlen,training=True)
     
     bert_model.model.compile(optimizer=Adam(1e-5),loss='categorical_crossentropy',metrics=['categorical_accuracy'])
 
@@ -145,7 +145,7 @@ if __name__=="__main__":
     parser = argparse.ArgumentParser(description='train PhenoTagger, python PhenoTagger_training.py -t trainfile -d devfile -m modeltype -o outpath')
     parser.add_argument('--trainfile', '-t', help="the training file",default='../data/distant_train_data/distant_train.conll')
     parser.add_argument('--devfile', '-d', help="the development set file",default='none')
-    parser.add_argument('--modeltype', '-m', help="deep learning model (cnn or biobert?)",default='biobert')
+    parser.add_argument('--modeltype', '-m', help="deep learning model (cnn, bioformer or biobert?)",default='bioformer')
     parser.add_argument('--output', '-o', help="the model output folder",default='../newmodels/')
     args = parser.parse_args()
     
@@ -153,7 +153,7 @@ if __name__=="__main__":
         os.makedirs(args.output)
 
     if args.modeltype=='cnn':
-        vocabfiles={'w2vfile':'../models/bio_embedding_intrinsic.d200',   
+        vocabfiles={'w2vfile':'../models_v1.1/bio_embedding_intrinsic.d200',   
                     'charfile':'../dict/char.vocab',
                     'labelfile':'../dict/lable.vocab',
                     'posfile':'../dict/pos.vocab'}
@@ -167,12 +167,28 @@ if __name__=="__main__":
         modelfile=args.output+'cnn.h5'
         CNN_training(trainfiles,vocabfiles,modelfile)
         
+    elif args.modeltype=='bioformer':
+        
+        vocabfiles={'labelfile':'../dict/lable.vocab',
+                    'config_path':'../models_v1.1/bioformer-cased-v1.0/bert_config.json',
+                    'checkpoint_path':'../models_v1.1/bioformer-cased-v1.0/bioformer-cased-v1.0-model.ckpt-2000000',
+                    'vocab_path':'../models_v1.1/bioformer-cased-v1.0/vocab.txt'}
+
+        
+        trainfiles={'trainfile':' ',
+                    'devfile':' ',
+                    'devout':' '}
+        trainfiles['trainfile']=args.trainfile
+        trainfiles['devfile']=args.devfile
+        trainfiles['devout']=args.output+'biobert_dev_temp.tsv'
+        modelfile=args.output+'bioformer.h5'
+        BERT_training(trainfiles,vocabfiles,modelfile)
     else:
         
         vocabfiles={'labelfile':'../dict/lable.vocab',
-                    'config_path':'../models/biobert_v11_pubmed/bert_config.json',
-                    'checkpoint_path':'../models/biobert_v11_pubmed/model.ckpt-1000000',
-                    'vocab_path':'../models/biobert_v11_pubmed/vocab.txt'}
+                    'config_path':'../models_v1.1/biobert_v11_pubmed/bert_config.json',
+                    'checkpoint_path':'../models_v1.1/biobert_v11_pubmed/model.ckpt-1000000',
+                    'vocab_path':'../models_v1.1/biobert_v11_pubmed/vocab.txt'}
 
         
         trainfiles={'trainfile':' ',
