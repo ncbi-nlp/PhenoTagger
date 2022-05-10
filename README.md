@@ -1,10 +1,16 @@
-# PhenoTagger
+# PhenoTagger v1.1
 ***
 This repo contains the source code and dataset for the PhenoTagger.
 
 PhenoTagger is a hybrid method that combines dictionary and deep learning-based methods to recognize Human Phenotype Ontology (HPO) concepts in unstructured biomedical text. It is an ontology-driven method without requiring any manually labeled training data, as that is expensive and annotating a large-scale training dataset covering all classes of HPO concepts is highly challenging and unrealistic. Please refer to our paper for more details:
 
 - [Ling Luo, Shankai Yan, Po-Ting Lai, Daniel Veltri, Andrew Oler, Sandhya Xirasagar, Rajarshi Ghosh, Morgan Similuk, Peter N Robinson, Zhiyong Lu. PhenoTagger: A Hybrid Method for Phenotype Concept Recognition using Human Phenotype Ontology. Bioinformatics, Volume 37, Issue 13, 1 July 2021, Pages 1884–1890.](https://doi.org/10.1093/bioinformatics/btab019)
+
+
+## Updates:
+- Fix some bugs to speed up the processing time.
+- Add a [Bioformer](https://github.com/WGLab/Bioformer) model (a light weight BERT in biomedical domain).  
+- Re-train phenotype models using the newest version of HPO (hp/releases/2022-04-14)
 
 ## Content
 - [Dependency package](#package)
@@ -20,17 +26,17 @@ PhenoTagger is a hybrid method that combines dictionary and deep learning-based 
 <a name="package"></a>
 PhenoTagger have been tested using Python3.7 on CentOS and uses the following dependencies on a CPU and GPU:
 
-TF2:
-- [TensorFlow 2.3.0](https://www.tensorflow.org/)
-- [Keras 2.4.3](http://www.numpy.org/)
-- [nltk 3.5](www.nltk.org)
-- [keras-bert 0.86.0](https://github.com/CyberZHG/keras-bert)
-
-or TF1:
+TF1:
 - [TensorFlow 1.15.2](http://www.deeplearning.net/software/theano/)
 - [Keras 2.3.1](http://www.numpy.org/)
 - [nltk 3.5](www.nltk.org)
 - [keras-bert 0.84.0](https://github.com/CyberZHG/keras-bert)
+
+or TF2:
+- [TensorFlow 2.3.0](https://www.tensorflow.org/)
+- [Keras 2.4.3](http://www.numpy.org/)
+- [nltk 3.5](www.nltk.org)
+- [keras-bert 0.86.0](https://github.com/CyberZHG/keras-bert)
 
 To install all dependencies automatically using the command:
 
@@ -41,7 +47,7 @@ $ pip install -r requirements.txt
 ## Data and model preparation
 <a name="preparation"></a>
 
-1. To run this code, you need to first download [the model file](https://ftp.ncbi.nlm.nih.gov/pub/lu/PhenoTagger/models.zip) ( it includes some trained models, i.e., BioBERT-Base v1.1, pre-trained word embedding, two trained models for HPO concept recognition), then unzip and put the model folder into the Phenotagger folder.
+1. To run this code, you need to first download [the model file](https://ftp.ncbi.nlm.nih.gov/pub/lu/PhenoTagger/models.zip) ( it includes the files for three trained models for HPO concept recognition, i.e., CNN, Bioformer, and BioBERT ), then unzip and put the model folder into the Phenotagger folder.
 2. The corpora used in the experiments are provided in */data/corpus.zip*. Please unzip the file, if you need to use them.
 
 ## Tagging free text with PhenoTagger
@@ -69,7 +75,7 @@ We also provide some optional parameters for the different requirements of users
 
 ```
 para_set={
-'model_type':'biobert',   # two deep learning models are provided. cnn or biobert
+'model_type':'biobert',   # three deep learning models are provided. cnn bioformer, or biobert
 'onlyLongest':False,  # False: return overlapping concepts; True: only return the longgest concepts in the overlapping concepts
 'abbrRecog':False,    # False: don't identify abbreviation; True: identify abbreviations
 'ML_Threshold':0.95,  # the Threshold of deep learning model
@@ -94,13 +100,14 @@ Example:
 $ python Build_dict.py -i ../ontology/hp.obo -o ../dict/ -r HP:0000118
 ```
 
-After the program is finished, 5 files will be generated in the output folder.
+After the program is finished, 6 files will be generated in the output folder.
 
 - id\_word\_map.json
 - lable.vocab
 - noabb\_lemma.dic
 - obo.json
 - word\_id\_map.json
+- alt\_hpoid.json
 
 ### 2. Build the distantly-supervised training dataset using the *Build_distant_corpus.py* file
 
@@ -129,7 +136,7 @@ The file requires 4 parameters:
 
 - --trainfile, -t, help="the training file"
 - --devfile, -d, help="the development set file. If don't provide the dev file, the training will be stopped by the specified EPOCH"
-- --modeltype, -m, help="the deep learning model type (cnn or biobert?)"
+- --modeltype, -m, help="the deep learning model type (cnn, biobert, or bioformer?)"
 - --output, -o, help="the output folder of the model"
 
 Example:
@@ -193,14 +200,15 @@ Note that each file in the input folder will be submitted for processing separat
 ## Performance on HPO GSC+
 <a name="performance"></a>
 
-The following Table shows the results of PhenoTagger with the CNN and BioBERT models on the GSC+ test set. And the training/test time on one NVIDIA Tesla V100 GPU is provided. You can choose the appropriate model according to your needs.
+The following Table shows the results of PhenoTagger with the CNN, Bioformer and BioBERT models on the GSC+ test set. And the processing time (Seconds per 100
+abstracts) using TF1 on one NVIDIA Tesla V100x GPU and CPU is provided. You can choose the appropriate model according to your needs.
 
-| Method | Training/Test time | Men-P | Men-R | Men-F1 | Doc-P | Doc-R | Doc-F1 |
+| Method | Processing time per 100 abstracts(GPU/CPU) | Men-P | Men-R | Men-F1 | Doc-P | Doc-R | Doc-F1 |
 | ----------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
-| PhenoTagger (CNN) | 2h56m/106s | 0.772 | 0.706 | 0.738 | 0.735 | 0.706 | 0.720 |
-| PhenoTagger (BioBERT) | 15h42m/152s | 0.789 | 0.722 | 0.754 | 0.774 | 0.740 | 0.757 |
+| PhenoTagger (CNN) | 22s/16s | 0.802 | 0.703 | 0.749 | 0.769 | 0.713 | 0.740 |
+| PhenoTagger (Bioformer) | 24s/68s | 0.790 | 0.731 | 0.759 | 0.755 | 0.734 | 0.744 |
+| PhenoTagger (BioBERT) | 35s/157s | 0.773 | 0.741 | 0.757 | 0.759 | 0.766 | 0.763 |
 
-Here, *h*, *m*, *s* denotes hour, minute and second, respectively. 
 
 
 ## Citing PhenoTagger
@@ -208,7 +216,7 @@ Here, *h*, *m*, *s* denotes hour, minute and second, respectively.
 
 If you're using PhenoTagger, please cite:
 
-*  Ling Luo, Shankai Yan, Po-Ting Lai, Daniel Veltri, Andrew Oler, Sandhya Xirasagar, Rajarshi Ghosh, Morgan Similuk, Peter N Robinson, Zhiyong Lu. [PhenoTagger: A Hybrid Method for Phenotype Concept Recognition using Human Phenotype Ontology](https://doi.org/10.1093/bioinformatics/btab019). Bioinformatics, 2021, btab019.
+*  Ling Luo, Shankai Yan, Po-Ting Lai, Daniel Veltri, Andrew Oler, Sandhya Xirasagar, Rajarshi Ghosh, Morgan Similuk, Peter N Robinson, Zhiyong Lu. [PhenoTagger: A Hybrid Method for Phenotype Concept Recognition using Human Phenotype Ontology](https://doi.org/10.1093/bioinformatics/btab019). Bioinformatics, Volume 37, Issue 13, 1 July 2021, Pages 1884–1890.
 
 
 ## Acknowledgments 
