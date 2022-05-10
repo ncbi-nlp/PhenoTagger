@@ -7,7 +7,7 @@ PhenoTagger is a hybrid method that combines dictionary and deep learning-based 
 - [Ling Luo, Shankai Yan, Po-Ting Lai, Daniel Veltri, Andrew Oler, Sandhya Xirasagar, Rajarshi Ghosh, Morgan Similuk, Peter N Robinson, Zhiyong Lu. PhenoTagger: A Hybrid Method for Phenotype Concept Recognition using Human Phenotype Ontology. Bioinformatics, Volume 37, Issue 13, 1 July 2021, Pages 1884–1890.](https://doi.org/10.1093/bioinformatics/btab019)
 
 
-## Updates:
+## Updates (2022-05-10):
 - Fix some bugs to speed up the processing time.
 - Add a [Bioformer](https://github.com/WGLab/Bioformer) model (a light weight BERT in biomedical domain).  
 - Re-train phenotype models using the newest version of HPO (hp/releases/2022-04-14)
@@ -75,7 +75,7 @@ We also provide some optional parameters for the different requirements of users
 
 ```
 para_set={
-'model_type':'biobert',   # three deep learning models are provided. cnn bioformer, or biobert
+'model_type':'biobert',   # three deep learning models are provided: cnn, bioformer, or biobert
 'onlyLongest':False,  # False: return overlapping concepts; True: only return the longgest concepts in the overlapping concepts
 'abbrRecog':False,    # False: don't identify abbreviation; True: identify abbreviations
 'ML_Threshold':0.95,  # the Threshold of deep learning model
