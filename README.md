@@ -8,8 +8,7 @@ PhenoTagger is a hybrid method that combines dictionary and deep learning-based 
 
 ## Updates (2022-11-24)
 - build a app demo for PhenoTagger
-
-## Updates (2022-05-10):
+(2022-05-10):
 - Fix some bugs to speed up the processing time.
 - Add a [Bioformer](https://github.com/WGLab/Bioformer) model (a light weight BERT in biomedical domain).  
 - Re-train phenotype models using the newest version of HPO (hp/releases/2022-04-14)
