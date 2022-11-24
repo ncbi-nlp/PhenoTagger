@@ -1,4 +1,4 @@
-# PhenoTagger v1.1
+# PhenoTagger v1.1 ([Demo](https://huggingface.co/spaces/lingbionlp/PhenoTaggger-Demo))
 ***
 This repo contains the source code and dataset for the PhenoTagger.
 
