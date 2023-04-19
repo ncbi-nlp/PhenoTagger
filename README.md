@@ -57,6 +57,13 @@ $ pip install -r requirements.txt
 
 1. To run this code, you need to first download [the model file](https://ftp.ncbi.nlm.nih.gov/pub/lu/PhenoTagger/models_v1.1.zip) ( it includes the files for three trained models for HPO concept recognition, i.e., CNN, Bioformer, and BioBERT ), then unzip and put the model folder into the Phenotagger folder.
 2. The corpora used in the experiments are provided in */data/corpus.zip*. Please unzip the file, if you need to use them.
+3. First run this code, you need to download NLTK packages:
+```
+ >>> import nltk
+ >>> nltk.download('punkt')
+ >>> nltk.download('averaged_perceptron_tagger')
+ >>> nltk.download('wordnet')
+```
 
 ## Tagging free text with PhenoTagger
 <a name="tagging"></a>
