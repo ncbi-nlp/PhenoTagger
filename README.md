@@ -1,4 +1,4 @@
-# PhenoTagger
+# PhenoTagger v1.0
 ***
 This repo contains the source code and dataset for the PhenoTagger.
 
