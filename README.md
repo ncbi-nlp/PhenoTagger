@@ -6,7 +6,10 @@ PhenoTagger is a hybrid method that combines dictionary and deep learning-based 
 
 - [Ling Luo, Shankai Yan, Po-Ting Lai, Daniel Veltri, Andrew Oler, Sandhya Xirasagar, Rajarshi Ghosh, Morgan Similuk, Peter N Robinson, Zhiyong Lu. PhenoTagger: A Hybrid Method for Phenotype Concept Recognition using Human Phenotype Ontology. Bioinformatics, Volume 37, Issue 13, 1 July 2021, Pages 1884–1890.](https://doi.org/10.1093/bioinformatics/btab019)
 
-## Updates (2022-11-24)
+## Updates (2023-10-12)
+- For updates to later versions of PhenoTagger, please see the new [repository](https://github.com/DUTIR-BioNLP/PhenoTagger-Updates).
+
+(2022-11-24)
 - build a app demo for PhenoTagger
 
 (2022-05-10):
