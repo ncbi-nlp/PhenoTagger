@@ -18,13 +18,13 @@ PhenoTagger is a hybrid method that combines dictionary and deep learning-based 
 
 (2022-11-24)
 
--build a app demo for PhenoTagger
+- build a app demo for PhenoTagger
 
 (2022-05-10):
 
--Fix some bugs to speed up the processing time.
--Add a Bioformer model (a light weight BERT in biomedical domain).
--Re-train phenotype models using the newest version of HPO (hp/releases/2022-04-14)
+- Fix some bugs to speed up the processing time.
+- Add a Bioformer model (a light weight BERT in biomedical domain).
+- Re-train phenotype models using the newest version of HPO (hp/releases/2022-04-14)
 
 ## Content
 - [Dependency package](#package)
@@ -172,6 +172,16 @@ If you're using PhenoTagger, please cite:
 *  Ling Luo, Shankai Yan, Po-Ting Lai, Daniel Veltri, Andrew Oler, Sandhya Xirasagar, Rajarshi Ghosh, Morgan Similuk, Peter N Robinson, Zhiyong Lu. [PhenoTagger: A Hybrid Method for Phenotype Concept Recognition using Human Phenotype Ontology](https://doi.org/10.1093/bioinformatics/btab019). Bioinformatics, Volume 37, Issue 13, 1 July 2021, Pages 1884–1890.
 
 
+## Acknowledgments 
+<a name="ac"></a>
+
+This research is supported by the Intramural Research Programs of the National Institutes of Health, National Library of Medicine.
+Thanks to Dr. Chih-Hsuan Wei for his help with Web APIs.
+
+
+## Disclaimer
+
+This tool shows the results of research conducted in the Computational Biology Branch, NCBI. The information produced on this website is not intended for direct diagnostic use or medical decision-making without review and oversight by a clinical professional. Individuals should not change their health behavior solely on the basis of information produced on this website. NIH does not independently verify the validity or utility of the information produced by this tool. If you have questions about the information produced on this website, please see a health care professional. More information about NCBI's disclaimer policy is available.
 
 
 ***
