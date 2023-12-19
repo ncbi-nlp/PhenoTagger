@@ -8,11 +8,12 @@ Created on Thu Mar 26 09:04:13 2020
 import time
 import sys
 import numpy as np
-
+import tensorflow as tf
 from nn_represent import CNN_RepresentationLayer,BERT_RepresentationLayer
-from keras.layers import *
-from keras.models import Model
-from keras_bert import load_trained_model_from_checkpoint
+from tensorflow.keras.layers import *
+from tensorflow.keras.models import Model
+# from keras_bert import load_trained_model_from_checkpoint
+from transformers import TFAutoModel
 
 
 '''
@@ -102,24 +103,28 @@ class bioTag_BERT():
     def __init__(self, model_files):
         self.model_type='bert'
         self.maxlen = 32
-        config_path = model_files['config_path']
-        checkpoint_path = model_files['checkpoint_path']
-        vocab_path = model_files['vocab_path']
+        
+        self.checkpoint_path = model_files['checkpoint_path']
         self.label_file=model_files['labelfile']
+        self.lowercase=model_files['lowercase']
+        self.rep = BERT_RepresentationLayer(self.checkpoint_path, self.label_file, lowercase=self.lowercase)
+       
+       
 
-    
-        self.rep = BERT_RepresentationLayer( vocab_path, self.label_file)
         
         
-        bert_model = load_trained_model_from_checkpoint(config_path, checkpoint_path, training=False, trainable=True,seq_len=self.maxlen)
-    
-        x1_in = Input(shape=(None,))
-        x2_in = Input(shape=(None,))
-        x = bert_model([x1_in, x2_in])
-        x = Lambda(lambda x: x[:, 0])(x)
+        plm_model = TFAutoModel.from_pretrained(self.checkpoint_path, from_pt=True)
+
+        x1_in = Input(shape=(self.maxlen,),dtype=tf.int32, name='input_ids')
+        x2_in = Input(shape=(self.maxlen,),dtype=tf.int32, name='token_type_ids')
+        x3_in = Input(shape=(self.maxlen,),dtype=tf.int32, name='attention_mask')
+        #x = plm_model(x1_in, token_type_ids=x2_in, attention_mask=x3_in)[1]
+        #x = plm_model(x1_in, token_type_ids=x2_in, attention_mask=x3_in)[0] 
+        #x = GlobalMaxPooling1D()(x)
+        x = plm_model(x1_in, token_type_ids=x2_in, attention_mask=x3_in)[0][:,0,:]
         outputs = Dense(self.rep.label_table_size, activation='softmax')(x)
     
-        self.model = Model(inputs=[x1_in,x2_in], outputs=outputs)
+        self.model = Model(inputs=[x1_in,x2_in,x3_in], outputs=outputs)
 
     def load_model(self,model_file):
         self.model.load_weights(model_file)

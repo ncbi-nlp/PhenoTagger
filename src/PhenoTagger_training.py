@@ -7,7 +7,7 @@ Created on Mon Aug 24 10:14:27 2020
 
 import argparse
 from nn_model import bioTag_CNN,bioTag_BERT
-from keras.optimizers import RMSprop, SGD, Adam, Adadelta, Adagrad
+from tensorflow.keras.optimizers import RMSprop, SGD, Adam, AdamW, Adadelta, Adagrad,Nadam
 from ml_ner import ml_intext
 from dic_ner import dic_ont
 from tagging_text import bioTag
@@ -16,6 +16,12 @@ import sys
 import os
 import time
 import tensorflow as tf
+
+
+gpu = tf.config.list_physical_devices('GPU')
+print("Num GPUs Available: ", len(gpu))
+if len(gpu) > 0:
+    tf.config.experimental.set_memory_growth(gpu[0], True)
 
 def run_dev(files,biotag_dic,nn_model):
     
@@ -26,7 +32,7 @@ def run_dev(files,biotag_dic,nn_model):
     for doc_dev in all_dev:
         lines=doc_dev.split('\n')
         pmid = lines[0]
-        dev_result=bioTag(lines[1],biotag_dic,nn_model,Threshold=0.95)
+        dev_result=bioTag(lines[1],biotag_dic,nn_model,None,Threshold=0.95)
         dev_out.write(pmid+'\n'+lines[1]+'\n')
         for ele in dev_result:
             dev_out.write(ele[0]+'\t'+ele[1]+'\t'+lines[1][int(ele[0]):int(ele[1])]+'\t'+ele[2]+'\t'+ele[3]+'\n')
@@ -35,7 +41,7 @@ def run_dev(files,biotag_dic,nn_model):
     ave_f=general_corpus(files['devout'],files['devfile'])
     return ave_f
 
-def CNN_training(trainfiles,vocabfiles,modelfile,EPOCH=50):
+def CNN_training(trainfiles,vocabfiles,modelfile,EPOCH=150):
     
     cnn_model=bioTag_CNN(vocabfiles)
 
@@ -58,10 +64,12 @@ def CNN_training(trainfiles,vocabfiles,modelfile,EPOCH=50):
     if cnn_model.fea_dict['pos'] == 1:
         input_train.append(train_x[3])
 
-    opt = Adadelta()
-    #opt = Adam(lr=0.01) 
-    #opt = RMSprop(lr=0.0001, rho=0.9, epsilon=1e-06)
-    cnn_model.model.compile(loss='categorical_crossentropy', optimizer=opt,metrics=['categorical_accuracy'])
+    #opt = Adadelta()
+    #opt = AdamW(learning_rate=5e-5,weight_decay=0.01,epsilon=1e-6,global_clipnorm=1.0 ) 
+    #opt = Adam(lr=0.00001) 
+    opt = RMSprop(lr=0.0001, rho=0.9, epsilon=1e-06)
+    #cnn_model.model.compile(loss='categorical_crossentropy', optimizer=opt,metrics=['categorical_accuracy'])
+    cnn_model.model.compile(optimizer=opt,loss='sparse_categorical_crossentropy',metrics=['accuracy'])
     cnn_model.model.summary()
     #cnn_model.load_model(modelfile)
     ontfiles={'dic_file':'../dict/noabb_lemma.dic',
@@ -76,8 +84,8 @@ def CNN_training(trainfiles,vocabfiles,modelfile,EPOCH=50):
         Dev_ES=False
     for i in range(EPOCH):
         print('\nepoch:',i)
-        cnn_model.model.fit(input_train,train_y,batch_size=128, epochs=1,verbose=1)
-        if i<10:   # after 10 epoch, begin dev evaluation
+        cnn_model.model.fit(input_train,train_y,batch_size=128, epochs=1,verbose=2)
+        if i<40:   # after 10 epoch, begin dev evaluation
             continue
         #evaluation dev
         if Dev_ES==True:
@@ -94,7 +102,7 @@ def CNN_training(trainfiles,vocabfiles,modelfile,EPOCH=50):
         print('The model has saved.')
             
 
-def BERT_training(trainfiles,vocabfiles,modelfile,EPOCH=50):
+def BERT_training(trainfiles,vocabfiles,modelfile,EPOCH=100):
     
     bert_model=bioTag_BERT(vocabfiles)
 
@@ -105,7 +113,7 @@ def BERT_training(trainfiles,vocabfiles,modelfile,EPOCH=50):
 
     train_x,train_y=bert_model.rep.load_data(train_set,train_label,word_max_len=bert_model.maxlen,training=True)
     
-    bert_model.model.compile(optimizer=Adam(1e-5),loss='categorical_crossentropy',metrics=['categorical_accuracy'])
+    bert_model.model.compile(optimizer=Adam(5e-6),loss='sparse_categorical_crossentropy',metrics=['accuracy'])
 
     bert_model.model.summary()
     
@@ -122,8 +130,8 @@ def BERT_training(trainfiles,vocabfiles,modelfile,EPOCH=50):
 
     for i in range(EPOCH):
         print('epoch:',i)
-        bert_model.model.fit(train_x,train_y,batch_size=64, epochs=1,verbose=1)
-        if i<5:   # after 5 epoch, begin dev evaluation
+        bert_model.model.fit(train_x,train_y,batch_size=64, epochs=1,verbose=2)
+        if i<30:   # after 5 epoch, begin dev evaluation
             continue
         #evaluation dev
         if Dev_ES==True:
@@ -153,7 +161,7 @@ if __name__=="__main__":
         os.makedirs(args.output)
 
     if args.modeltype=='cnn':
-        vocabfiles={'w2vfile':'../models_v1.1/bio_embedding_intrinsic.d200',   
+        vocabfiles={'w2vfile':'../models/bio_embedding_intrinsic.d200',   
                     'charfile':'../dict/char.vocab',
                     'labelfile':'../dict/lable.vocab',
                     'posfile':'../dict/pos.vocab'}
@@ -163,16 +171,15 @@ if __name__=="__main__":
                     'devout':' '}
         trainfiles['trainfile']=args.trainfile
         trainfiles['devfile']=args.devfile
-        trainfiles['devout']=args.output+'cnn_dev_temp.tsv'
-        modelfile=args.output+'cnn.h5'
+        trainfiles['devout']=args.output+'cnn_dev_temp_b64.tsv'
+        modelfile=args.output+'cnn_PT_v1.2.h5'
         CNN_training(trainfiles,vocabfiles,modelfile)
         
     elif args.modeltype=='bioformer':
         
         vocabfiles={'labelfile':'../dict/lable.vocab',
-                    'config_path':'../models_v1.1/bioformer-cased-v1.0/bert_config.json',
-                    'checkpoint_path':'../models_v1.1/bioformer-cased-v1.0/bioformer-cased-v1.0-model.ckpt-2000000',
-                    'vocab_path':'../models_v1.1/bioformer-cased-v1.0/vocab.txt'}
+                    'checkpoint_path':'../models/bioformer-cased-v1.0/',
+                    'lowercase':False}
 
         
         trainfiles={'trainfile':' ',
@@ -180,22 +187,37 @@ if __name__=="__main__":
                     'devout':' '}
         trainfiles['trainfile']=args.trainfile
         trainfiles['devfile']=args.devfile
-        trainfiles['devout']=args.output+'biobert_dev_temp.tsv'
-        modelfile=args.output+'bioformer.h5'
+        trainfiles['devout']=args.output+'bioformer_dev_temp.tsv'
+        modelfile=args.output+'bioformer_PT_v1.2.h5'
         BERT_training(trainfiles,vocabfiles,modelfile)
-    else:
         
-        vocabfiles={'labelfile':'../dict/lable.vocab',
-                    'config_path':'../models_v1.1/biobert_v11_pubmed/bert_config.json',
-                    'checkpoint_path':'../models_v1.1/biobert_v11_pubmed/model.ckpt-1000000',
-                    'vocab_path':'../models_v1.1/biobert_v11_pubmed/vocab.txt'}
+    elif args.modeltype=='pubmedbert':
 
+        vocabfiles={'labelfile':'../dict/lable.vocab',
+                    'checkpoint_path':'../models/BiomedNLP-PubMedBERT-base-uncased-abstract-fulltext/',
+                    'lowercase':True}
         
         trainfiles={'trainfile':' ',
                     'devfile':' ',
                     'devout':' '}
         trainfiles['trainfile']=args.trainfile
         trainfiles['devfile']=args.devfile
+        trainfiles['devout']=args.output+'pubmedbert_dev_temp.tsv'
+        modelfile=args.output+'pubmedbert_PT_v1.2.h5'
+        BERT_training(trainfiles,vocabfiles,modelfile)
+    
+
+    elif args.modeltype=='biobert':
+
+        vocabfiles={'labelfile':'../dict/lable.vocab',
+                    'checkpoint_path':'../models/biobert-base-cased-v1.2/',
+                    'lowercase':False}
+
+        trainfiles={'trainfile':' ',
+                    'devfile':' ',
+                    'devout':' '}
+        trainfiles['trainfile']=args.trainfile
+        trainfiles['devfile']=args.devfile
         trainfiles['devout']=args.output+'biobert_dev_temp.tsv'
-        modelfile=args.output+'biobert.h5'
+        modelfile=args.output+'biobert_PT_v1.2-new.h5'
         BERT_training(trainfiles,vocabfiles,modelfile)

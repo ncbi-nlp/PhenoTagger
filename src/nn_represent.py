@@ -7,8 +7,9 @@ Created on Fri Jun 12 10:02:20 2020
 import time
 import os, sys
 import numpy as np
-from keras.preprocessing.sequence import pad_sequences
-from keras_bert import Tokenizer
+from tensorflow.keras.preprocessing.sequence import pad_sequences
+# from keras_bert import Tokenizer
+from transformers import AutoTokenizer
 
 
 class CNN_RepresentationLayer(object):
@@ -112,7 +113,8 @@ class CNN_RepresentationLayer(object):
             fea_index[line.strip()]=i
             i+=1
         fin.close()
-     
+    
+    '''
     def generate_label_list(self,labels):
         label_list=[]
         
@@ -121,7 +123,12 @@ class CNN_RepresentationLayer(object):
             temp_label[self.label_2_index[label]]=1
             label_list.append(temp_label)
         return label_list
-            
+    '''
+    def generate_label_list(self,labels):
+        sparse_labels=[]
+        for ele in labels:
+            sparse_labels.append(self.label_2_index[ele])
+        return(sparse_labels)
     
     def represent_instances_all_feas(self, instances, labels, word_max_len=100, char_max_len=50, training=False):
 
@@ -198,73 +205,83 @@ class CNN_RepresentationLayer(object):
 class BERT_RepresentationLayer(object):
     
     
-    def __init__(self, vocab_path, label_file):
+    def __init__(self, tokenizer_name_or_path, label_file,lowercase=True):
         
 
         #load vocab
-        self.bert_vocab_dict = {}
-        self.load_bert_vocab(vocab_path,self.bert_vocab_dict)
-        self.tokenizer = Tokenizer(self.bert_vocab_dict)
+        self.model_type='bert'
+        #self.model_type='roberta'
+        if self.model_type in {"gpt2", "roberta"}:
+            self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name_or_path, use_fast=True, add_prefix_space=True,do_lower_case=lowercase)
+        else:
+            self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name_or_path, use_fast=True,do_lower_case=lowercase)
 
         #load label
         self.label_2_index={}
+        self.index_2_label={}
         self.label_table_size=0
-        self.load_label_vocab(label_file,self.label_2_index)
+        self.load_label_vocab(label_file,self.label_2_index,self.index_2_label)
         self.label_table_size=len(self.label_2_index)
+        self.vocab_len=len(self.tokenizer)
 
-    def load_label_vocab(self,fea_file,fea_index):
+    def load_label_vocab(self,fea_file,fea_index,index_2_label):
+        
         fin=open(fea_file,'r',encoding='utf-8')
-        i=0
-        for line in fin:
-            fea_index[line.strip()]=i
-            i+=1
+        all_text=fin.read().strip().split('\n')
         fin.close()
-    def load_bert_vocab(self,vocab_file,vocab_dict):
-        fin=open(vocab_file,'r',encoding='utf-8')
-        i=0
-        for line in fin:
-            vocab_dict[line.strip()]=i
-            i+=1
-        fin.close()
+        for i in range(0,len(all_text)):
+            fea_index[all_text[i]]=i
+            index_2_label[str(i)]=all_text[i]
             
     def generate_label_list(self,labels):
-        label_list=[]
-        
-        for label in labels:
-            temp_label=[0]*self.label_table_size
-            temp_label[self.label_2_index[label]]=1
-            label_list.append(temp_label)
-        return label_list
+        sparse_labels=[]
+        for ele in labels:
+            sparse_labels.append(self.label_2_index[ele])       
+        return(sparse_labels)
     
     def load_data(self,instances, labels,  word_max_len=100,training=False):
     
         x_index=[]
         x_seg=[]
+        x_mask=[]
         y_list=[]
         
         for sentence in instances:                           
             sentence_text_list=[]
             for j in range(0,len(sentence)):
-                sentence_text_list.append(sentence[j][0])
-            sentence_text=' '.join(sentence_text_list)
-            #print(self.tokenizer.tokenize(first=sentence_text))
-            x1, x2 = self.tokenizer.encode(first=sentence_text)
-            x_index.append(x1)
-            x_seg.append(x2)                
+                sentence_text_list.append(sentence[j][0].lower()) #input lower
+                
+            token_result=self.tokenizer(
+                sentence_text_list,
+                max_length=word_max_len,
+                truncation=True,is_split_into_words=True)
+            
+            bert_tokens=self.tokenizer.convert_ids_to_tokens(token_result['input_ids'])
+            word_index=token_result.word_ids(batch_index=0)
+            
+
+            x_index.append(token_result['input_ids'])
+            if self.model_type in {"gpt2", "roberta"}:
+                x_seg.append([0]*len(token_result['input_ids']))
+            else:
+                x_seg.append(token_result['token_type_ids'])
+            x_mask.append(token_result['attention_mask'])              
         
         if training==True:
             y_list=self.generate_label_list(labels)
         
             x1_np = pad_sequences(x_index, word_max_len, value=0, padding='post',truncating='post')  # right padding
             x2_np = pad_sequences(x_seg, word_max_len, value=0, padding='post',truncating='post')
+            x3_np = pad_sequences(x_mask, word_max_len, value=0, padding='post',truncating='post')
             y_np = np.array(y_list)
         
         else:
             x1_np = pad_sequences(x_index, word_max_len, value=0, padding='post',truncating='post')  # right padding
             x2_np = pad_sequences(x_seg, word_max_len, value=0, padding='post',truncating='post')
+            x3_np = pad_sequences(x_mask, word_max_len, value=0, padding='post',truncating='post')
             y_np=[]
 
-        return [x1_np, x2_np], y_np  
+        return [x1_np, x2_np, x3_np], y_np  
 
 if __name__ == '__main__':
     pass

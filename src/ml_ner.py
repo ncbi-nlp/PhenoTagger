@@ -479,13 +479,13 @@ def model_predict(ml_input,nn_model,ml_input_txt,ml_input_index,Threshold):
         if nn_model.fea_dict['pos'] == 1:
             input_test.append(test_x[3])
     
-        test_pre = nn_model.model.predict(input_test,batch_size=256)
+        test_pre = nn_model.model.predict(input_test,batch_size=256,verbose=0)
     
     elif nn_model.model_type=='bert':
 
         test_set,test_label = ml_intext_fn(ml_input)
         test_x,test_y=nn_model.rep.load_data(test_set,test_label,word_max_len=nn_model.maxlen)
-        test_pre = nn_model.model.predict(test_x,batch_size=128)
+        test_pre = nn_model.model.predict(test_x,batch_size=128,verbose=0)
     
     test_score=output_result(test_pre, nn_model.rep.label_2_index,Top_N=3)
     #print('test_score:',test_score)

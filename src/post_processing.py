@@ -8,7 +8,7 @@ Created on Thu Jun 18 20:08:30 2020
 def combine_overlap(mention_list):
    
     entity_list=[]
-    if len(mention_list)>2:
+    if len(mention_list)>1:
         
         first_entity=mention_list[0]
         nest_list=[first_entity]

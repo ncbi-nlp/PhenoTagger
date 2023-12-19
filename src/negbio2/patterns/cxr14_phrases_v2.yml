@@ -1,0 +1,238 @@
+Atelectasis:
+  concept_id: RID28493
+  include:
+  - atelecta
+  - collapse
+  - volume loss
+Cardiomegaly:
+  include:
+  - cardiomegaly
+  - the heart
+  - heart size
+  - cardiac enlargement
+  - cardiac size
+  - cardiac shadow
+  - cardiac contour
+  - cardiac silhouette
+  - enlarged heart
+Consolidation:
+  concept_id: RID43255
+  include:
+  - consolidat
+Edema:
+  concept_id: RID4865
+  include:
+  - edema
+  - heart failure
+  - chf
+  - vascular congestion
+  - pulmonary congestion
+  - indistinctness
+  - vascular prominence
+Emphysema:
+  concept_id: RID4799
+  include:
+  - emphysema
+  exclude:
+  - subcutaneous emphysema
+  - mediastinal emphysema
+Enlarged Cardiomediastinum:
+  include:
+  - ' mediastinum'
+  - cardiomediastinum
+  - contour
+  - mediastinal configuration
+  - mediastinal silhouette
+  - pericardial silhouette
+  - cardiac silhouette and vascularity
+Fibrosis:
+  concept_id: RID3820
+  include:
+  - fibrosis
+Fracture:
+  concept_id: RID4650
+  include:
+  - fracture
+Hernia:
+  concept_id: RID4895
+  include:
+  - hernia
+Infiltration:
+  concept_id: RID39317
+  include:
+  - infiltrate
+  - infiltration
+Pleural Effusion:
+  concept_id: RID34539
+  include:
+  - pleural fluid
+  - effusion
+  - blunt
+  - thoracentesis
+  exclude:
+  - pericardial effusion
+Pleural Other:
+  include:
+  - fibrothorax
+  - pleural scar
+  - pleural parenchymal scar
+  - pleuro-parenchymal scar
+  - pleuro-pericardial scar
+Pleural Thickening:
+  include:
+  - pleural thickening
+Pneumonia:
+  concept_id: RID5350
+  include:
+  - pneumonia
+  - infection
+  - infectious process
+  - infectious
+  exclude:
+  - aspiration pneumonia
+Pneumothorax:
+  include:
+  - pneumothorax
+  - pneumothoraces
+Lung Lesion:
+  concept_id: RID38780
+  include:
+  - lump
+  - cavitary lesion
+  - carcinoma
+  - neoplasm
+  - tumor
+Lung Opacity:
+  concept_id: RID28530
+  include:
+  - opaci
+  - decreased translucency
+  - increased density
+  - airspace disease
+  - air-space disease
+  - air space disease
+  - interstitial marking
+  - interstitial pattern
+  - interstitial lung
+  - reticular pattern
+  - reticular marking
+  - reticulation
+  - parenchymal scarring
+  - peribronchial thickening
+  - wall thickening
+  - scar
+  exclude:
+  - pleural scar
+Mass:
+  concept_id: RID3874
+  include:
+  - mass
+  - metastasis
+  exclude:
+  - massive
+Nodule:
+  concept_id: RID38780
+  include:
+  - nodular density
+  - nodular densities
+  - nodular opacity
+  - nodular opacities
+  - nodular opacification
+  - nodule
+  exclude:
+  - calcified nodul
+Support Devices:
+  concept_id: RID5429
+  include:
+  - pacer
+  - '\blines?\b'
+  - picc
+  - '\btubes?\b'
+  - valve
+  - catheter
+  - pacemaker
+  - hardware
+  - arthroplast
+  - marker
+  - '\bicd?\b'
+  - defib
+  - device
+  - '\bdrain?\b'
+  - plate
+  - screw
+  - cannula
+  - apparatus
+  - coil
+  - support
+  - equipment
+  - mediport
+  - tracheostomy
+Pneumoperitoneum:
+  concept_id: RID4803
+  include:
+  - pneumoperitoneum
+Pneumomediastinum:
+  concept_id: RID28523
+  include:
+  - pneumomediastinum
+  - mediastinal emphysema
+Subcutaneous Emphysema:
+  include:
+  - subcutaneous emphysema
+Tortuous Aorta:
+  include:
+  - tortuous aorta
+Calcification of the Aorta:
+  include:
+  - calcification of the aorta
+No Finding:
+  include:
+  - density
+  - elevation
+  - eventration
+  - scoliosis
+  - degenera
+  - calcifi
+  - hyperinflation
+  - bronchospasm
+  - asthma
+  - copd
+  - interstitial markings
+  - plaque
+  - osteophytosis
+  - aortic disease
+  - bronchiolitis
+  - airways disease
+  - thickening
+  - cephalization
+  - aspiration
+  - bullae
+  - hyperinflat
+  - contusion
+  - atherosclero
+  - osteopenia
+  - granuloma
+  - osteodystrophy
+  - cuffing
+  - irregular lucency
+  - inflam
+  - fissure
+  - hypertension
+  - prominen
+  - kyphosis
+  - defib
+  - hyperexpansion
+  - bullet
+  - reticula
+  - bronchitis
+  - deformity
+  - hematoma
+  - radiopaque
+  - aerophagia
+  - arthropathy
+Diagnosis:
+  - aspiration pneumonia
+  - fluid overload
+  - hemorrhage
+  - hemothorax
+  - pericardial effusion

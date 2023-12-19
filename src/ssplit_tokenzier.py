@@ -43,3 +43,14 @@ def ssplit_token_pos_lemma(in_text):
         fout.write('\n')
            
     return fout.getvalue()
+
+def ssplit_token(in_text):
+    line=in_text.strip()
+    line=line.replace('-',' - ').replace('/',' / ')
+    sentences = nltk.sent_tokenize(line)
+    sentences = [nltk.word_tokenize(sent) for sent in sentences]
+#    print(sentences)
+    output_tokens=''
+    for sent in sentences:
+        output_tokens += ' '.join(sent)+' '
+    return ' '.join(output_tokens.strip().split())
